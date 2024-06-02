@@ -1,0 +1,20 @@
+{
+  "name": "researchtracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prod:css": "tailwindcss build -i staticfiles/css/tailwind.css -o static/css/tailwind.output.css",
+    "build:css": "tailwindcss build -i static/css/tailwind.css -o static/css/tailwind.output.css",
+    "watch:css": "tailwindcss build -i static/css/tailwind.css -o static/css/tailwind.output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  },
+  "dependencies": {
+    "feather-icons": "^4.29.2"
+  }
+}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="bg-white shadow rounded-lg p-6 min-h-screen">
+        <h2 class="flex items-center text-2xl text-gray-700 font-bold mb-4"><i data-feather="grid" class="mr-2 xl-icon feather-icon"></i>Tableau de bord</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="text-gray-700  bg-blue-100 p-4 rounded-lg shadow">
+                <div class="flex items-center font-semibold pt-2"><i data-feather="folder" class="md-icon mr-2 "></i>Projets</div>
+                <p class="text-gray-500  mt-2 mb-3">Suivez vos projets de recherche ici.</p>
+                <a href="{% url 'project-list' %}" class="flex items-center text-blue-600"><i data-feather="external-link" class="md-icon mr-2"></i>Voir plus</a>
+            </div>
+            <div class="text-gray-700 bg-green-100 p-4 rounded-lg shadow">
+                <div class="flex items-center font-semibold pt-2"><i data-feather="book" class="md-icon mr-2 " ></i>Publications</div>
+                <p class="text-gray-500 mt-2 mb-3">Gérez vos publications scientifiques.</p>
+                <a href="{% url 'publications-list' %}" class="flex items-center text-green-600"><i data-feather="external-link" class="md-icon mr-2"></i>Voir plus</a>
+            </div>
+            {#        <div class="bg-yellow-100 p-4 rounded-lg shadow">#}
+            {#            <h3 class="font-bold">Collaborateurs</h3>#}
+            {#            <p>Gérez les profils des collaborateurs.</p>#}
+            {#            <a href="{% url 'collaborator-list' %}" class="text-yellow-600">Voir plus</a>#}
+            {#        </div>#}
+            {#        <div class="bg-red-100 p-4 rounded-lg shadow">#}
+            {#            <h3 class="font-bold">Financements</h3>#}
+            {#            <p>Suivez les sources de financement.</p>#}
+            {#            <a href="{% url 'funding-list' %}" class="text-red-600">Voir plus</a>#}
+            {#        </div>#}
+            {#        <div class="bg-purple-100 p-4 rounded-lg shadow">#}
+            {#            <h3 class="font-bold">Rapports</h3>#}
+            {#            <p>Générez des rapports détaillés.</p>#}
+            {#            <a href="{% url 'report-list' %}" class="text-purple-600">Voir plus</a>#}
+            {#        </div>#}
+            {#        <div class="bg-gray-100 p-4 rounded-lg shadow">#}
+            {#            <h3 class="font-bold">Notifications</h3>#}
+            {#            <p>Consultez vos notifications.</p>#}
+            {#            <a href="{% url 'notification-list' %}" class="text-gray-600">Voir plus</a>#}
+            {#        </div>#}
+        </div>
+    </div>
+{% endblock %}

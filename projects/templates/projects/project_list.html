@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Projects - ResearchTracker{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow rounded-lg p-6 min-h-screen">
+    <h1 class="flex items-center text-2xl text-gray-700 font-bold mb-4"><i data-feather="folder" class="xl-icon mr-2 "></i>Projets</h1>
+    <ul>
+        {% for project in projects %}
+            <li class="mb-2">
+                <a href="{% url 'project-detail' project.id %}" class="text-blue-600">{{ project.title }}</a>
+                <p>{{ project.description }}</p>
+                <p>Status: {{ project.status }}</p>
+                <p>Date de début: {{ project.start_date }}</p>
+                <p>Date de fin: {{ project.end_date }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

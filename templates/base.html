@@ -1,0 +1,93 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;700&display=swap" rel="stylesheet">
+    <link href="{% static 'css/tailwind.output.css' %}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <title>{% block title %}ResearchTracker{% endblock %}</title>
+    <style>
+        .body-bg {
+            background-image: url("{% static 'img/body.webp' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body class="body-bg bg-gray-500 flex flex-col min-h-screen  ">
+<!-- Navigation Bar -->
+{#<nav class="w-full fixed bg-gradient-to-r from-violet-800 via-purple-800 to-violet-800  p-4 py-3 text-white">#}
+{##}
+{#    <div class="container mx-auto flex justify-between items-center">#}
+{#        <a href="{% url 'dashboard' %}">#}
+{#            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 42" width="300" height="40">#}
+{#                <!-- Molecule icon -->#}
+{#                <g transform="translate(10, 5)" stroke="#EDF2F7" stroke-width="2">#}
+{#                    <!-- Atoms -->#}
+{#                    <circle cx="20" cy="10" r="5" fill="#EDF2F7"></circle>#}
+{#                    <circle cx="40" cy="10" r="5" fill="#EDF2F7"></circle>#}
+{#                    <circle cx="30" cy="25" r="5" fill="#EDF2F7"></circle>#}
+{#                    <!-- Bonds -->#}
+{#                    <line x1="20" y1="10" x2="40" y2="10"></line>#}
+{#                    <line x1="20" y1="10" x2="30" y2="25"></line>#}
+{#                    <line x1="40" y1="10" x2="30" y2="25"></line>#}
+{#                </g>#}
+{#                <text x="70" y="30" font-family="Montserrat, sans-serif" font-size="24" fill="#EDF2F7">ResearchTracker#}
+{#                </text>#}
+{#            </svg>#}
+{#        </a>#}
+{#        <div class="flex">#}
+{#            {% if user.is_authenticated %}#}
+{#                <form method="post" action="{% url 'logout' %}" class="inline">#}
+{#                    {% csrf_token %}#}
+{#                    <button type="submit" class="text-white ml-4 flex items-center">#}
+{#                        <i data-feather="log-out" class="feather-icon mr-2"></i> Logout#}
+{#                    </button>#}
+{#                </form>#}
+{#            {% else %}#}
+{#                <div>#}
+{#                    <a href="{% url 'login' %}" class="text-white ml-4 flex items-center">#}
+{#                        <i data-feather="log-in" class="md-icon mr-2"></i> Connexion#}
+{#                    </a>#}
+{#                </div>#}
+{#                <div>#}
+{#                    <a href="{% url 'signup' %}" class="text-white ml-4 flex items-center">#}
+{#                        <i data-feather="user-plus" class="md-icon mx-2"></i>S'incrire#}
+{#                    </a>#}
+{#                </div>#}
+{#            {% endif %}#}
+{#        </div>#}
+{#    </div>#}
+{#</nav>#}
+{% include 'nav.html' %}
+<!-- Main Content -->
+<main class="flex-grow container mx-auto p-4 mt-20">
+    {% block content %}
+    {% endblock %}
+</main>
+
+<!-- Footer -->
+<footer class="bg-gradient-to-r from-purple-800 via-violet-800 to-purple-800 text-white p-4 text-center">
+    &copy; 2024 ResearchTracker. All rights reserved.
+</footer>
+{% block js %}
+    <script>
+        feather.replace();
+    </script>
+    <script>
+        document.getElementById('menu-button').addEventListener('click', function () {
+            var dropdown = document.getElementById('menu-dropdown');
+            if (dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('hidden');
+            } else {
+                dropdown.classList.add('hidden');
+            }
+        });
+    </script>
+{% endblock %}
+</body>
+</html>

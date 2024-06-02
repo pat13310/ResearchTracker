@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Modifier/Créer une Publication - ResearchTracker{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-10 w-1/2 ">
+    <h2 class="text-2xl font-bold mb-4 text-violet-800">{{ view.title }}</h2>
+    <form method="post" class="space-y-4 bg-white rounded-md shadow shadow-gray-800 p-4 ">
+        {% csrf_token %}
+        <div>
+            {{ form.title }}
+        </div>
+        <div>
+            {{ form.authors }}
+        </div>
+        <div>
+            {{ form.publication_date }}
+        </div>
+        <div>
+            {{ form.project }}
+        </div>
+        <div>
+            {{ form.journal }}
+        </div>
+        <div>
+            {{ form.doi }}
+        </div>
+        <div>
+            <button type="submit" class="bg-violet-800 text-white px-4 py-2 rounded hover:bg-violet-950">Enregistrer</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+import warnings
+
+# from transformers import pipeline
+#
+# warnings.filterwarnings("ignore", category=UserWarning, module='transformers')
+# warnings.filterwarnings("ignore", category=FutureWarning, module='transformers')
+# warnings.filterwarnings("ignore", category=UserWarning, module='tensorflow')
+#
+#
+# class TextProcessor:
+#     def __init__(self):
+#         self.simplifier = pipeline("text2text-generation", model="t5-base")
+#         self.summarizer = pipeline("summarization")
+#
+#     def simplify_text(self, text):
+#         try:
+#             simplified_text = self.simplifier(f"simplify: {text}", max_length=150, min_length=50, do_sample=False)[0][
+#                 'generated_text']
+#             return simplified_text
+#         except Exception as e:
+#             raise ValueError(f"Error simplifying text: {e}")
+#
+#     def summarize_text(self, text):
+#         try:
+#             summary = self.summarizer(text, max_length=130, min_length=30, do_sample=False)[0]['summary_text']
+#             return summary
+#         except Exception as e:
+#             raise ValueError(f"Error summarizing text: {e}")
