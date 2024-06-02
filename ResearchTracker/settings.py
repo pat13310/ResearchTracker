@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(-$_3^gllkqp59zsoexa%oy!5*cp5l@-#r!uk($ov_j2dv--(2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -159,3 +159,11 @@ LOGGING = {
         },
     },
 }
+
+CELERY_BROKER_URL = 'redis://:qLg8E8JBYoNxLpnGGlwVe8hJ2pXTyulj@redis-16622.c304.europe-west1-2.gce.redns.redis-cloud.com:16622/0'
+CELERY_RESULT_BACKEND = 'redis://:qLg8E8JBYoNxLpnGGlwVe8hJ2pXTyulj@redis-16622.c304.europe-west1-2.gce.redns.redis-cloud.com:16622/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True  # Add this line

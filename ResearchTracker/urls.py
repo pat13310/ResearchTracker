@@ -38,6 +38,7 @@ urlpatterns = [
     path('profile/', include('userprofile.urls')),
     path('ia/', include('summarizer.urls')),
     path('api/doi', include('api.urls')),
+    path('feeds/', include('feeds.urls')),
 ]
 
 handler404 = 'ResearchTracker.views.handler404'

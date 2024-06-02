@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Ajouter/Modifier un Flux RSS - ResearchTracker{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-1 w-1/2">
+    <form method="post" class="space-y-4 bg-white rounded-md shadow shadow-gray-800 p-4">
+        <h2 class="text-2xl font-bold mb-4 text-violet-800">Ajouter un flux RSS</h2>
+        <hr>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div>
+            <button type="submit" class="bg-violet-800 text-white px-4 py-2 rounded hover:bg-violet-950">Enregistrer</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
