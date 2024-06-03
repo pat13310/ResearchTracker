@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+
+from celery.schedules import crontab
 from django.contrib import staticfiles
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -48,7 +50,7 @@ INSTALLED_APPS = [
     "userprofile.apps.UserprofileConfig",
     "summarizer.apps.SummarizerConfig",
     "api.apps.ApiConfig",
-    "feeds.apps.FeedsConfig"
+    "feeds.apps.FeedsConfig",
 ]
 
 MIDDLEWARE = [
@@ -166,4 +168,14 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
-CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True  # Add this line
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_IMPORTS = [
+    'ResearchTracker.tasks',
+]
+
+CELERY_BEAT_SCHEDULE = {
+    'update-feeds-every-hour': {
+        'task': 'ResearchTracker.tasks.update_all_feeds',
+        'schedule': crontab(minute='*/30'),  # Exécute toutes les 30 minutes
+    },
+}

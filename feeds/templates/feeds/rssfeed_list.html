@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container mx-auto mt-10">
     <h2 class="text-2xl font-bold mb-4 text-violet-800">Liste des Flux RSS</h2>
-    <a href="{% url 'rssfeed-add' %}" class="bg-violet-800 text-white px-4 py-2 rounded hover:bg-violet-900">Ajouter un flux RSS</a>
+    <a href="{% url 'rss-feed-add' %}" class="bg-violet-800 text-white px-4 py-2 rounded hover:bg-violet-900">Ajouter un flux RSS</a>
     <table class="min-w-full bg-white mt-6 shadow-lg rounded">
         <thead>
             <tr class="bg-violet-500 text-white">
@@ -17,13 +17,14 @@
         </thead>
         <tbody class="text-violet-900">
             {% for rss_feed in rss_feeds %}
-                <tr class="border-b">
+                <tr class="text-center border-b">
                     <td class="py-2 px-4">{{ rss_feed.title }}</td>
                     <td class="py-2 px-4">{{ rss_feed.url }}</td>
                     <td class="py-2 px-4">{{ rss_feed.description }}</td>
                     <td class="py-2 px-4">
-                        <a href="{% url 'rssfeed-edit' rss_feed.pk %}" class="text-blue-500 hover:underline">Modifier</a>
-                        <a href="{% url 'rssfeed-delete' rss_feed.pk %}" class="text-red-500 hover:underline ml-2">Supprimer</a>
+                        <a href="{% url 'rss-feed-detail' rss_feed.pk %}" class="text-blue-500 hover:underline">Voir</a>
+                        <a href="{% url 'rss-feed-edit' rss_feed.pk %}" class="text-blue-500 hover:underline">Modifier</a>
+                        <a href="{% url 'rss-feed-delete' rss_feed.pk %}" class="text-red-500 hover:underline ml-2">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}

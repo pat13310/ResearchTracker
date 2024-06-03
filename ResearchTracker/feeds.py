@@ -4,7 +4,7 @@ from publications.models import Publication
 
 
 class LatestPublicationsFeed(Feed):
-    title = "Latest Publications"
+    title = "Dernières Publications"
     link = "/rss/"
     description = "Updates on the latest publications."
 
