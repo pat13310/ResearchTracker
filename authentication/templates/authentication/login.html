@@ -12,13 +12,24 @@
                     Nom utilisateur
                 </label>
                 {{ form.username }}
+                {% if form.username.errors %}
+                    <p class="text-red-500 text-xs italic mt-2">{{ form.username.errors.0 }}</p>
+                {% endif %}
             </div>
             <div class="mb-6">
                 <label class="block text-gray-600 text-sm font-semibold mb-2" for="password">
                     Mot de passe
                 </label>
                 {{ form.password }}
+                {% if form.password.errors %}
+                    <p class="text-red-500 text-xs italic mt-2">{{ form.password.errors.0 }}</p>
+                {% endif %}
             </div>
+            {% if form.non_field_errors %}
+                <div class="mb-4">
+                    <p class="text-red-500 text-xs italic">{{ form.non_field_errors.0 }}</p>
+                </div>
+            {% endif %}
             <div class="flex justify-center">
                 <button class="text-sm bg-violet-800 hover:bg-violet-900 text-white font-semibold py-2 px-4 rounded"
                         type="submit">

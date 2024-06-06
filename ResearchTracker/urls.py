@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import handler404
 from dashboard import views as dashboard_views
+from home import views as home_views
 
 # router = DefaultRouter()
 # router.register(r'projets', ProjetViewSet)
@@ -27,7 +28,8 @@ from dashboard import views as dashboard_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', dashboard_views.dashboard, name='dashboard'),
+    path('', include('home.urls')),
+    path('dashboard', dashboard_views.dashboard, name='dashboard'),
     path('projets/', include('projects.urls')),
     path('publications/', include('publications.urls')),
     # path('', include('collaborators.urls')),
@@ -39,6 +41,8 @@ urlpatterns = [
     path('ia/', include('summarizer.urls')),
     path('api/doi', include('api.urls')),
     path('feeds/', include('feeds.urls')),
+    path('contact/', include('contact.urls')),
+
 ]
 
 handler404 = 'ResearchTracker.views.handler404'

@@ -1,0 +1,40 @@
+<!-- templates/publications/publication_details.html -->
+{% extends "base.html" %}
+
+{% block title %}Détails de la Publication - ResearchTracker{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-10">
+    <div class="bg-white shadow-md rounded p-6">
+        <h1 class="text-3xl font-bold mb-4 text-violet-800">{{ publication.title }}</h1>
+        <p class="mb-2"><strong>Auteurs :</strong> {{ publication.authors }}</p>
+        <p class="mb-2"><strong>Date de publication :</strong> {{ publication.publication_date|date:"d F Y" }}</p>
+        <p class="mb-2"><strong>Projet :</strong> {{ publication.project }}</p>
+        <p class="mb-2"><strong>Journal :</strong> {{ publication.journal }}</p>
+        <p class="mb-2"><strong>DOI :</strong> {{ publication.doi }}</p>
+        <p class="mb-2"><strong>Source :</strong> {{ publication.get_source_display }}</p>
+        <p class="mb-2"><strong>Date de création :</strong> {{ publication.created_at|date:"d F Y H:i" }}</p>
+
+        {% if publication.current_version %}
+            <h2 class="text-2xl font-semibold mt-6 mb-2">Version actuelle</h2>
+            <p class="mb-2"><strong>Titre :</strong> {{ publication.current_version.title }}</p>
+            <p class="mb-2"><strong>Auteurs :</strong> {{ publication.current_version.authors }}</p>
+            <p class="mb-2"><strong>Date de publication :</strong> {{ publication.current_version.publication_date|date:"d F Y" }}</p>
+            <p class="mb-2"><strong>Journal :</strong> {{ publication.current_version.journal }}</p>
+            <p class="mb-2"><strong>DOI :</strong> {{ publication.current_version.doi }}</p>
+            <p class="mb-2"><strong>Date de création :</strong> {{ publication.current_version.created_at|date:"d F Y H:i" }}</p>
+
+            {% if publication.current_version.media_files.exists %}
+                <h3 class="text-xl font-semibold mt-4 mb-2">Fichiers média</h3>
+                <ul>
+                    {% for media in publication.current_version.media_files.all %}
+                        <li>
+                            <a href="{{ media.file.url }}" target="_blank">{{ media.description }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

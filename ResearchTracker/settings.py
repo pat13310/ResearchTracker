@@ -15,6 +15,8 @@ from pathlib import Path
 from celery.schedules import crontab
 from django.contrib import staticfiles
 
+# from dotenv import load_dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -51,6 +53,8 @@ INSTALLED_APPS = [
     "summarizer.apps.SummarizerConfig",
     "api.apps.ApiConfig",
     "feeds.apps.FeedsConfig",
+    "contact.apps.ContactConfig",
+    "home.apps.HomeConfig"
 ]
 
 MIDDLEWARE = [
@@ -92,7 +96,39 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'yjndwnsp_researchtracker',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',  # Hôte fourni par PlanetHoster
+#         'PORT': '3306',
+#     }
+# }
 
+#Railway base de données distante
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'railway',
+#         'USER': 'root',
+#         'PASSWORD': 'jCpyeOWhXiDJZKJdRlgYZgIsrzpFsqiv',
+#         'HOST': 'monorail.proxy.rlwy.net',
+#         'PORT': '50369',
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'yjndwnsp_researchtracker',
+#         'USER': 'yjndwnsp_root',
+#         'PASSWORD': 'Garcia66240',
+#         'HOST': 'node109-eu.n0c.com', ici localhost  # Hôte fourni par PlanetHoster
+#         'PORT': '3306',
+#     }
+# }
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -140,8 +176,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'authentication.CustomUser'
 
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = 'login/'
+
+LOGIN_URL = 'login/'  # Nom de l'URL pour la page de connexion
+LOGIN_REDIRECT_URL = '/'  # Redirection après une connexion réussie
+LOGOUT_REDIRECT_URL = '/'  # Redirection après une déconnexion réussie
+
 
 LOGGING = {
     'version': 1,
@@ -179,3 +218,13 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute='*/30'),  # Exécute toutes les 30 minutes
     },
 }
+
+# load_dotenv()
+# EMAIL_HOST = os.getenv('EMAIL_HOST')
+# EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = False
+# EMAIL_USE_SSL = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True

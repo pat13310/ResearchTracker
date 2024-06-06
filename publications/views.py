@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from rest_framework import viewsets
 
 from .models import Publication
@@ -26,6 +26,7 @@ class PublicationListView(LoginRequiredMixin, ListView):
     model = Publication
     template_name = 'publications/publication_list.html'
     context_object_name = 'publications'
+    login_url = reverse_lazy('login')
 
     def get_queryset(self):
         queryset = Publication.objects.filter(user=self.request.user)
@@ -77,3 +78,13 @@ class PublicationDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return Publication.objects.filter(user=self.request.user)
+
+
+class PublicationDetailView(DetailView):
+    model = Publication
+    template_name = 'publications/publication_details.html'
+    context_object_name = 'publication'
+
+
+    def get_queryset(self):
+        return Publication.objects.all()
