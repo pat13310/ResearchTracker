@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,7 @@
     <style>
         .body-bg {
             background-image: url("{% static 'img/body.webp' %}");
-            background-size:contain;
+            background-size: contain;
         }
     </style>
 </head>
@@ -29,20 +29,21 @@
 <footer class="bg-gradient-to-r from-purple-800 via-violet-800 to-purple-800 text-white p-4 text-center">
     &copy; 2024 ResearchTracker. All rights reserved.
 </footer>
+
+<script>
+    feather.replace();
+</script>
+<script>
+    document.getElementById('menu-button').addEventListener('click', function () {
+        var dropdown = document.getElementById('menu-dropdown');
+        if (dropdown.classList.contains('hidden')) {
+            dropdown.classList.remove('hidden');
+        } else {
+            dropdown.classList.add('hidden');
+        }
+    });
+</script>
 {% block js %}
-    <script>
-        feather.replace();
-    </script>
-    <script>
-        document.getElementById('menu-button').addEventListener('click', function () {
-            var dropdown = document.getElementById('menu-dropdown');
-            if (dropdown.classList.contains('hidden')) {
-                dropdown.classList.remove('hidden');
-            } else {
-                dropdown.classList.add('hidden');
-            }
-        });
-    </script>
 {% endblock %}
 </body>
 </html>

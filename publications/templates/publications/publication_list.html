@@ -45,15 +45,17 @@
             </thead>
             <tbody class="text-violet-900">
             {% for publication in publications %}
-                <tr class="border-b">
+                <tr class="border-b text-center">
                     <td class="py-2 px-4">{{ publication.title }}</td>
                     <td class="py-2 px-4">{{ publication.authors }}</td>
                     <td class="py-2 px-4">{{ publication.publication_date|date:"D d M Y" }}</td>
-                    <td class="py-2 px-4">
-                        <a href="{% url 'publication-update' publication.pk %}" class="text-blue-500 hover:underline">Modifier</a>
-                        <button class="text-red-500 hover:underline ml-2" onclick="openModal({{ publication.pk }})">
-                            Supprimer
+                    <td class="py-2 px-4 flex justify-around">
+                        <a href="{% url 'publication-update' publication.pk %}" class="flex items-center text-sm button-edit"><i data-feather="edit" class="sm-icon mr-2"></i>Modifier</a>
+                        <button class="flex items-center text-sm button-delete" onclick="openModal({{ publication.pk }})">
+                            <i data-feather="trash" class="sm-icon mr-2"></i>Supprimer
                         </button>
+                        <a href="{% url 'publication-detail' publication.pk %}" class="flex items-center text-sm button-details"><i data-feather="eye" class="sm-icon mr-2"></i>Détailler</a>
+
                     </td>
                 </tr>
             {% endfor %}

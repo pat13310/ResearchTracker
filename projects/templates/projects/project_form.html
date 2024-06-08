@@ -1,0 +1,36 @@
+<!-- project_form.html -->
+
+{% extends "base.html" %}
+
+{% block title %}{{ view.title }} - ResearchTracker{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-10 w-1/2 rounded-md bg-white shadow shadow-gray-800">
+    <h2 class="text-2xl p-4 font-bold text-violet-800 my-4 mx-2">{{ action }}</h2>
+    <form method="post" class="space-y-4 bg-white shadow shadow-gray-800 p-4 ">
+        {% csrf_token %}
+        <div>
+            {{ form.title }}
+        </div>
+        <div>
+            {{ form.description }}
+        </div>
+          <div class="mb-4 flex items-center">
+            <div class="w-1/2 mr-2">
+                <label class="block text-gray-700 text-sm font-semibold mb-2" for="id_start_date">Date de début</label>
+                {{ form.start_date }}
+            </div>
+            <div class="w-1/2">
+                <label class="block text-gray-700 text-sm font-semibold mb-2" for="id_end_date">Date de fin</label>
+                {{ form.end_date }}
+            </div>
+        </div>
+        <div>
+            {{ form.status }}
+        </div>
+        <div>
+            <button type="submit" class="bg-violet-800 text-white px-4 py-2 rounded hover:bg-violet-950">Enregistrer</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

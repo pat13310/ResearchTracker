@@ -3,12 +3,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import View
 from django.contrib.auth.models import User
-from .models import UserProfile
+from authentication.models import UserProfile
 from .forms import UserForm, UserProfileForm
 
 
 class ProfileView(LoginRequiredMixin, View):
-    template_name = 'profile.html'
+    template_name = 'userprofile/userprofile.html'
     success_url = reverse_lazy('profile')
 
     def get(self, request, *args, **kwargs):

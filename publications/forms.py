@@ -1,8 +1,19 @@
 from django import forms
 from .models import Publication, PublicationVersion, Media
-from datetime import date
+from datetime import date, datetime
+
 
 class PublicationForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance.pk:  # Si l'objet existe (c'est une mise à jour)
+            self.initial['publication_date'] = self.instance.start_date.strftime('%Y-%m-%d')
+            self.fields['publication_date'].widget.attrs['readonly'] = True
+        else:  # Mode création
+            self.initial['publication_date'] = datetime.now().strftime('%Y-%m-%d')
+            self.fields['publication_date'].widget.attrs['readonly'] = False
+
     class Meta:
         model = Publication
         fields = ['title', 'authors', 'publication_date', 'project', 'journal', 'doi']
@@ -16,27 +27,28 @@ class PublicationForm(forms.ModelForm):
         }
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'form-input mt-1 block w-full rounded-md border-gray-400 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50 focus:outline-none p-2',
+                'class': 'custom-input',
                 'placeholder': 'Titre'
             }),
             'authors': forms.TextInput(attrs={
-                'class': 'form-input mt-1 block w-full rounded-md border-gray-400 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50 focus:outline-none p-2',
+                'class': 'custom-input',
                 'placeholder': 'Auteurs'
             }),
             'publication_date': forms.DateInput(attrs={
-                'class': 'form-input mt-1 block w-full rounded-md border-gray-400 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50 focus:outline-none p-2',
+                'class': 'custom-input',
                 'type': 'date',
-                'value': date.today().strftime('%Y-%m-%d')
+                'value': date.today().strftime('%Y-%m-%d'),
+                'format': 'YYYY-MM-DD'
             }),
             'project': forms.Select(attrs={
-                'class': 'form-select mt-1 block w-full rounded-md border-gray-400 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50 focus:outline-none p-2'
+                'class': 'custom-input'
             }),
             'journal': forms.TextInput(attrs={
-                'class': 'form-input mt-1 block w-full rounded-md border-gray-400 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50 focus:outline-none p-2',
+                'class': 'custom-input',
                 'placeholder': 'Journal'
             }),
             'doi': forms.TextInput(attrs={
-                'class': 'form-input mt-1 block w-full rounded-md border-gray-400 shadow-sm focus:border-violet-300 focus:ring focus:ring-violet-200 focus:ring-opacity-50 focus:outline-none p-2',
+                'class': 'custom-input',
                 'placeholder': 'DOI'
             }),
         }

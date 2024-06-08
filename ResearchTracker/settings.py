@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     "api.apps.ApiConfig",
     "feeds.apps.FeedsConfig",
     "contact.apps.ContactConfig",
-    "home.apps.HomeConfig"
+    "home.apps.HomeConfig",
 ]
 
 MIDDLEWARE = [
@@ -72,7 +72,7 @@ ROOT_URLCONF = 'ResearchTracker.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

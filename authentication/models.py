@@ -1,5 +1,9 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
+from django.db.models.signals import post_save
+
+
+# from userprofile.models import UserProfile
 
 
 class CustomUser(AbstractUser):
@@ -14,3 +18,21 @@ class CustomUser(AbstractUser):
         if self.last_name:
             return self.last_name[:3].capitalize()
         return self.username[:3].capitalize()
+
+
+def post_save_user_receiver(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+
+post_save.connect(post_save_user_receiver, sender=CustomUser)
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField('CustomUser', on_delete=models.CASCADE)
+    bio = models.TextField(blank=True, null=True)
+    location = models.CharField(max_length=100, blank=True, null=True)
+    preferences = models.JSONField(default=dict, blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username
