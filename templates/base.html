@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;700&display=swap" rel="stylesheet">
     <link href="{% static 'css/tailwind.output.css' %}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="{% static 'django_ckeditor_5/dist/bundle.js' %}"></script>
+    <link href="{% static 'django_ckeditor_5/dist/styles.css' %}"  rel="stylesheet">
     <title>{% block title %}ResearchTracker{% endblock %}</title>
     <style>
         .body-bg {
@@ -44,6 +46,7 @@
     });
 </script>
 {% block js %}
+   
 {% endblock %}
 </body>
 </html>

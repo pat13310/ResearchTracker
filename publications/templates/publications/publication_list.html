@@ -3,10 +3,13 @@
 {% block title %}Liste des Publications - ResearchTracker{% endblock %}
 
 {% block content %}
-    <div class="container mx-auto mt-10 bg-white p-10 h-screen">
-        <h2 class="flex items-center text-2xl font-bold mb-4 text-violet-800"><i data-feather="list"
-                                                                                 class="mr-2 xl-icon feather-icon"></i>Liste
-            des publications</h2>
+    <div class="container mx-auto mt-0 bg-white p-10 h-screen">
+        <nav class="flex items-center text-xl mb-6 t text-violet-600 space-x-2">
+            <a href="{% url 'dashboard' %}" class="flex items-center hover:underline">
+                <i data-feather="grid" class="mr-2 md-icon feather-icon"></i>Tableau de bord</a>
+            <i data-feather="chevron-right" class="mr-2 md-icon feather-icon"></i>
+            <i data-feather="list" class="mr-2 md-icon feather-icon"></i><span class="font-semibold">Liste des Publications</span>
+        </nav>
         <hr class="mb-6">
         <div class="flex justify-between items-center mb-4">
             <form method="get" action="{% url 'publications-list' %}" class="flex items-center space-x-2">
@@ -40,21 +43,38 @@
                 <th class="py-2 px-4">Titre</th>
                 <th class="py-2 px-4">Auteurs</th>
                 <th class="py-2 px-4">Date de publication</th>
+                <th class="py-2 px-4">Versions</th>
                 <th class="py-2 px-4">Actions</th>
             </tr>
             </thead>
             <tbody class="text-violet-900">
             {% for publication in publications %}
-                <tr class="border-b text-center">
-                    <td class="py-2 px-4">{{ publication.title }}</td>
+                <tr class="border-b text-center hover:bg-gray-50">
+                    <td class="py-2 px-4"><a href="{% url 'publication-detail' publication.pk %}"
+                                             class="hover:underline hover:text-violet-700">{{ publication.title }}</a>
+                    </td>
                     <td class="py-2 px-4">{{ publication.authors }}</td>
                     <td class="py-2 px-4">{{ publication.publication_date|date:"D d M Y" }}</td>
+                    <td class="py-2 px-4">
+                        <select id="versionSelect"
+                                class="form-select mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-violet-400 focus:ring focus:ring-violet-500 focus:ring-opacity-50">
+                            <option value="">Sélectionner une version</option> <!-- Option par défaut -->
+                            {% for version in publication.versions.all %}
+                                <option value="{% url 'publication-detail' version.pk %}">{{ version.version }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
                     <td class="py-2 px-4 flex justify-around">
-                        <a href="{% url 'publication-update' publication.pk %}" class="flex items-center text-sm button-edit"><i data-feather="edit" class="sm-icon mr-2"></i>Modifier</a>
-                        <button class="flex items-center text-sm button-delete" onclick="openModal({{ publication.pk }})">
+                        <a href="{% url 'publication-update' publication.pk %}"
+                           class="flex items-center text-sm button-edit"><i data-feather="edit"
+                                                                            class="sm-icon mr-2"></i>Modifier</a>
+                        <button class="flex items-center text-sm button-delete"
+                                onclick="openModal({{ publication.pk }})">
                             <i data-feather="trash" class="sm-icon mr-2"></i>Supprimer
                         </button>
-                        <a href="{% url 'publication-detail' publication.pk %}" class="flex items-center text-sm button-details"><i data-feather="eye" class="sm-icon mr-2"></i>Détailler</a>
+                        <a href="{% url 'publication-detail' publication.pk %}"
+                           class="flex items-center text-sm button-details"><i data-feather="git-branch"
+                                                                               class="sm-icon mr-2"></i>Versionner</a>
 
                     </td>
                 </tr>

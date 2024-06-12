@@ -85,6 +85,14 @@ class PublicationDetailView(DetailView):
     template_name = 'publications/publication_details.html'
     context_object_name = 'publication'
 
-
     def get_queryset(self):
         return Publication.objects.all()
+
+    def get(self, request, pk, *args, **kwargs):
+        publication = get_object_or_404(Publication, pk=pk)
+        # Trier les versions par date de création en ordre décroissant
+        versions = publication.versions.all().order_by('-created_at')
+        return render(request, self.template_name, {
+            'publication': publication,
+            'versions': versions
+        })

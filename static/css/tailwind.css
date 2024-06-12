@@ -193,3 +193,75 @@
     background-color: #c61103;
     color:white;
 }
+
+
+/* Définition des styles pour les révisions de A à F avec des déclinaisons de violet et ajout de bordures */
+
+/* Rev-A: Light violet */
+.Rev {
+    padding: 4px 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+.Rev-A {
+    background-color: #EDE7F6; /* Violet très clair */
+    color: #4A148C; /* Texte en violet foncé pour un bon contraste */
+    border: 2px solid #b095e1; /* Bordure légèrement plus foncée */
+
+}
+
+/* Rev-B: Light-medium violet */
+.Rev-B {
+    background-color: #D1C4E9; /* Violet clair-moyen */
+    color: #311B92; /* Texte en violet encore plus foncé */
+    border: 2px solid #8453df; /* Bordure légèrement plus foncée */
+
+}
+
+/* Rev-C: Medium violet */
+.Rev-C {
+    background-color: #B39DDB; /* Violet moyen */
+    color: #29056e; /* Texte en violet très foncé */
+    border: 2px solid #7b4bd3; /* Bordure légèrement plus foncée */
+
+}
+
+/* Rev-D: Medium-dark violet */
+.Rev-D {
+    background-color: #9575CD; /* Violet foncé moyen */
+    color: #2e0975; /* Texte en violet très foncé */
+    border: 2px solid #3a069a; /* Bordure légèrement plus foncée */
+
+}
+
+/* Rev-E: Dark violet */
+.Rev-E {
+    background-color: #7E57C2; /* Violet foncé */
+    color: #FFFFFF; /* Texte blanc pour un bon contraste */
+    border: 2px solid #3a069a; /* Bordure légèrement plus foncée */
+
+}
+
+/* Rev-F: Darker violet */
+.Rev-F {
+    background-color: #673AB7; /* Violet très foncé */
+    color: #FFFFFF; /* Texte blanc pour un bon contraste */
+    border: 2px solid #3a069a; /* Bordure légèrement plus foncée */
+
+}
+
+/* Style pour le texte en gras */
+.text-strong {
+    color: #4A4A4A; /* Gris moyen pour le texte en gras */
+    font-weight: 600;
+}
+
+/* Style pour le texte normal */
+.text-muted {
+    color: #858484; /* Gris plus clair pour le texte normal */
+    font-weight: 400;
+}
+
+.ck .ck--ring--focus {
+    border: 1px solid #6316e8!important;  /* Par exemple, changer la couleur de bordure */
+}

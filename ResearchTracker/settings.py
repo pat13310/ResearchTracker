@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     "feeds.apps.FeedsConfig",
     "contact.apps.ContactConfig",
     "home.apps.HomeConfig",
+    "django_ckeditor_5",
+
 ]
 
 MIDDLEWARE = [
@@ -107,7 +109,7 @@ DATABASES = {
 #     }
 # }
 
-#Railway base de données distante
+# Railway base de données distante
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
@@ -168,7 +170,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -176,11 +178,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'authentication.CustomUser'
 
-
 LOGIN_URL = 'login/'  # Nom de l'URL pour la page de connexion
 LOGIN_REDIRECT_URL = '/'  # Redirection après une connexion réussie
 LOGOUT_REDIRECT_URL = '/'  # Redirection après une déconnexion réussie
-
 
 LOGGING = {
     'version': 1,
@@ -228,3 +228,33 @@ CELERY_BEAT_SCHEDULE = {
 # EMAIL_USE_SSL = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
+
+CKEDITOR_BASEPATH = "/static/ckeditor/"
+# CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': {
+            'items': [
+                'heading', '|',
+                'bold', 'italic', 'link', '|',
+                'bulletedList', 'numberedList', 'blockQuote', '|',
+                'insertImage', 'mediaEmbed', 'insertTable', '|',
+                'undo', 'redo'
+            ],
+        },
+        'image': {
+            'toolbar': [
+                'imageTextAlternative', '|',
+                'imageStyle:full', 'imageStyle:side', '|',
+                'linkImage'
+            ]
+        },
+        'height': 300,
+        'width': '100%',
+        'resize_enabled': True,
+
+    },
+
+}
+

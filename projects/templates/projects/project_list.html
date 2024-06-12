@@ -5,11 +5,13 @@
 {% block title %}Liste des Projets - ResearchTracker{% endblock %}
 
 {% block content %}
-    <div class="container mx-auto mt-10 bg-white p-10 h-screen">
-        <h2 class="flex items-center text-2xl font-bold mb-4 text-violet-800">
-            <i data-feather="folder" class="mr-2 xl-icon feather-icon"></i>
-            Liste des Projets
-        </h2>
+    <div class="container mx-auto mt-0 bg-white p-10 h-screen">
+        <nav class="flex items-center text-xl mb-6 t text-violet-600 space-x-2">
+            <a href="{% url 'dashboard' %}" class="flex items-center hover:underline">
+            <i data-feather="grid" class="mr-2 md-icon feather-icon"></i>Tableau de bord</a>
+            <i data-feather="chevron-right" class="mr-2 md-icon feather-icon"></i>
+            <i data-feather="folder" class="mr-2 md-icon feather-icon"></i><span class="font-semibold">Liste des Projets</span>
+        </nav>
         <hr class="mb-6">
         <div class="flex justify-between items-center mb-4">
             <form method="get" action="{% url 'project-list' %}" class="flex items-center space-x-2">
@@ -51,7 +53,7 @@
             <tbody class="divide-y divide-gray-200">
             {% for project in projects %}
                 <tr class="text-center hover:bg-gray-100">
-                    <td class="py-2 px-4">{{ project.title }}</td>
+                    <td class="py-2 px-4"><a class="hover:text-violet-700 hover:underline" href="{% url 'project-detail' project.pk %}">{{ project.title }}</a></td>
                     <td class="py-2 px-4">{{ project.description }}</td>
                     <td class="py-2 px-4">{{ project.start_date|date:"d F Y" }}</td>
                     <td class="py-2 px-4">{{ project.end_date|date:"d F Y" }}</td>
@@ -65,7 +67,7 @@
                         <button type="button" class="text-sm button-delete flex items-center" onclick="openModal({{ project.pk }},'{{ project.title }}')">
                             <i data-feather="trash" class="sm-icon mr-2"></i>Supprimer
                         </button>
-                        <a href="{% url 'project-detail' project.pk %}" class="text-sm button-details flex items-center">
+                        <a href="{% url 'project-detail' project.pk %}" class="text-sm button-details flex items-center ">
                             <i data-feather="eye" class="sm-icon mr-2"></i>Détailler
                         </a>
                     </td>

@@ -10,16 +10,14 @@ class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'class': 'block w-full px-4 py-1.5 border border-violet-300 rounded focus:outline-none focus:ring-2 '
-                         'focus:ring-violet-400 focus:border-transparent'
+                'class': 'custom-input'
             }
         )
     )
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
-                'class': 'block w-full px-4 py-1.5 border border-violet-300 rounded focus:outline-none focus:ring-2 '
-                         'focus:ring-violet-400 focus:border-transparent'
+                'class': 'custom-input'
             }
         )
     )
@@ -27,20 +25,16 @@ class CustomAuthenticationForm(AuthenticationForm):
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={
-        'class': 'block w-full px-4 py-1.5 border border-violet-300 rounded focus:outline-none focus:ring-2 '
-                 'focus:ring-violet-400 focus:border-transparent'
+        'class': 'custom-input'
     }))
     username = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'block w-full px-4 py-1.5 border border-violet-300 rounded focus:outline-none focus:ring-2 '
-                 'focus:ring-violet-400 focus:border-transparent'
+        'class': 'custom-input'
     }))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'block w-full px-4 py-1.5 border border-violet-300 rounded focus:outline-none focus:ring-2 '
-                 'focus:ring-violet-400 focus:border-transparent'
+        'class': 'custom-input'
     }))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'block w-full px-4 py-1.5 border border-violet-300 rounded focus:outline-none focus:ring-2 '
-                 'focus:ring-violet-400 focus:border-transparent'
+        'class': 'custom-input'
     }))
 
     class Meta:

@@ -8,7 +8,7 @@ class PublicationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance.pk:  # Si l'objet existe (c'est une mise à jour)
-            self.initial['publication_date'] = self.instance.start_date.strftime('%Y-%m-%d')
+            self.initial['publication_date'] = self.instance.publication_date.strftime('%Y-%m-%d')
             self.fields['publication_date'].widget.attrs['readonly'] = True
         else:  # Mode création
             self.initial['publication_date'] = datetime.now().strftime('%Y-%m-%d')
@@ -53,6 +53,7 @@ class PublicationForm(forms.ModelForm):
             }),
         }
 
+
 class PublicationVersionForm(forms.ModelForm):
     media_files = forms.ModelMultipleChoiceField(
         queryset=Media.objects.all(),
@@ -63,6 +64,7 @@ class PublicationVersionForm(forms.ModelForm):
     class Meta:
         model = PublicationVersion
         fields = ['title', 'authors', 'publication_date', 'journal', 'doi', 'media_files']
+
 
 class MediaForm(forms.ModelForm):
     class Meta:

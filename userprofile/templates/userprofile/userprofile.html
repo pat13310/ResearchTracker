@@ -1,16 +1,26 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Profil - ResearchTracker{% endblock %}
 
 {% block content %}
-    <div class="w-full max-w-2xl mx-auto mt-10">
-        <h2 class="text-2xl font-bold mb-4 text-violet-800">Profil</h2>
+    <div class="w-full bg-white max-w-2xl mx-auto mt-0 rounded-md shadow shadow-gray-800 p-4">
+        <div class="flex items-center text-2xl font-bold mb-4 text-violet-800"><i data-feather="user"
+                                                                                  class="mr-2 xl-icon feather-icon"></i>Profil
+        </div>
+        <hr>
         <form method="post">
             {% csrf_token %}
-            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <h3 class="text-xl font-semibold mb-4">Informations Utilisateur</h3>
+            <div class="px-8 pt-6 pb-8 mb-4 text-md">
+                <div class="flex items-center text-md text-violet-900 font-semibold mb-4"><i data-feather="info"
+                                                                                             class="mr-2 sm-icon feather-icon"></i>Informations
+                    Utilisateur
+                </div>
                 {{ user_form.as_p }}
-                <h3 class="text-xl font-semibold mb-4 mt-6">Préférences</h3>
+                {{ form.media }}
+                <div class="flex items-center text-md text-violet-900 font-semibold mb-4 mt-6"><i data-feather="sliders"
+                                                                                                  class="mr-2 sm-icon feather-icon"></i>Préférences
+                </div>
                 {{ profile_form.as_p }}
                 <div class="flex items-center justify-between mt-6">
                     <button class="bg-violet-800 hover:bg-violet-900 text-white font-semibold py-2 px-4 rounded"
@@ -22,3 +32,26 @@
         </form>
     </div>
 {% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/voiceRecognition.js' %}"></script>
+    <script type="module">
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const wordCountElement = document.querySelector('.ck.ck-word-count');
+            if (wordCountElement) {
+                wordCountElement.style.display = 'none';
+            }
+            //const domEditableElement = document.querySelector('.ck-editor__editable');
+            //const editorInstance = domEditableElement.ckeditorInstance;
+
+            VoiceRecognition();
+            //editorInstance.setData( '<p>Hello world!<p>' );
+
+        });
+
+    </script>
+{% endblock %}
+
+
