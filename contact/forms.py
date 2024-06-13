@@ -10,10 +10,10 @@ class ContactForm(forms.ModelForm):
                   'email': 'Email',
                   'message': 'Message', }
 
-        widgets = {'name': forms.TextInput(attrs={'class': 'form-input',
+        widgets = {'name': forms.TextInput(attrs={'class': 'mb-2 custom-input',
                                                   'placeholder': 'Nom'}),
-                   'email': forms.TextInput(attrs={'class': 'form-input',
+                   'email': forms.TextInput(attrs={'class': 'mb-2 custom-input',
                                                    'placeholder': 'Email'}),
-                   'message': forms.Textarea(attrs={'class': 'form-input',
+                   'message': forms.Textarea(attrs={'class': 'mb-2 custom-input',
                                                     'placeholder': 'Message'}),
                    }

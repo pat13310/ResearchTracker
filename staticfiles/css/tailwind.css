@@ -1,0 +1,267 @@
+@import './scroll.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.md-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.lg-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.md-avatar {
+    border-radius: 50%;
+    display: flex;
+    height: 38px;
+    width: 38px;
+    padding: 2px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 11px;
+}
+
+.xl-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.sm-icon {
+    width: 14px;
+    height: 14px;
+}
+
+/* Style du sélecteur */
+.custom-select {
+    position: relative;
+    display: inline-block;
+    width: 200px; /* Ajustez la largeur selon vos besoins */
+}
+
+.custom-select select {
+    appearance: none;
+    width: 100%;
+    padding: 8px 12px;
+    /*border: 2px solid #e3deea; Bordure violette */
+    border-radius: 0.375rem; /* Arrondir les coins */
+    background-color: white; /* Fond blanc par défaut */
+    color: #7c3aed; /* Texte violet par défaut */
+    outline: none;
+    font-size: 0.85rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='5' viewBox='0 0 10 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 5 5-5z' fill='%237c3aed'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
+    padding-right: 32px; /* Pour faire de la place pour la flèche */
+}
+
+/* Style des options dans le sélecteur */
+.custom-select option {
+    background-color: white; /* Fond blanc par défaut */
+    color: #7c3aed; /* Texte violet par défaut */
+    padding: 8px 12px; /* Ajouter du padding aux options */
+}
+
+/* Style pour l'option sélectionnée */
+.custom-select select option:checked {
+    background-color: #7c3aed; /* Fond violet lors de la sélection */
+    color: white; /* Texte blanc lors de la sélection */
+}
+
+/* Style pour l'option survolée */
+.custom-select select option:hover {
+    background-color: #6316e8; /* Fond violet lors du survol */
+    color: white; /* Texte blanc lors du survol */
+}
+
+
+.custom-input {
+    margin-top: 0.25rem; /* mt-1 */
+    display: block; /* block */
+    width: 100%; /* w-full */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06); /* shadow-sm */
+    border-radius: 0.375rem; /* rounded-md */
+    border: 1px solid #cbd5e0; /* border-gray-400 */
+    padding: 0.5rem; /* p-2 */
+}
+
+.custom-input:focus {
+    border-color: #d4a0ff; /* focus:border-violet-300 */
+    box-shadow: 0 0 0 3px rgba(222, 175, 255, 0.5); /* focus:ring-violet-200 with focus:ring-opacity-50 */
+    outline: none; /* focus:outline-none */
+}
+
+.custom-textarea {
+    margin-top: 0.25rem; /* mt-1 */
+    display: block; /* block */
+    width: 100%; /* w-full */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06); /* shadow-sm */
+    border-radius: 0.375rem; /* rounded-md */
+    border: 1px solid #cbd5e0; /* border-gray-400 */
+    padding: 0.5rem; /* p-2 */
+}
+
+.custom-textarea:focus {
+    border-color: #d4a0ff; /* focus:border-violet-300 */
+    box-shadow: 0 0 0 3px rgba(222, 175, 255, 0.5); /* focus:ring-violet-200 with focus:ring-opacity-50 */
+    outline: none; /* focus:outline-none */
+}
+
+
+.badge {
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.5rem;
+}
+
+.badge-in_progress {
+    background-color: #FFC107; /* Jaune */
+    color: #212529;
+}
+
+.badge-published {
+    background-color: #28A745; /* Vert */
+    color: #fff;
+}
+
+.badge-rejected {
+    background-color: #DC3545; /* Rouge */
+    color: #fff;
+}
+
+.badge-corrected {
+    background-color: #17A2B8; /* Bleu */
+    color: #fff;
+}
+
+
+/* static/css/styles.css */
+
+/* Classe pour le bouton Modifier */
+.button-edit {
+    color: #4CAF50; /* Vert pour modifier */
+    border: 1px solid #4CAF50;
+    padding: 0.25em 0.8em;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.button-edit:hover {
+    background-color: #40a644;
+    color:white;
+}
+
+/* Classe pour le bouton Détails */
+.button-details {
+    color: #008CBA; /* Bleu pour détails */
+    padding: 0.25em 0.8em;
+    border: 1px solid #008CBA;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.button-details:hover {
+    background-color: #007bb5;
+    color:white;
+}
+
+/* Classe pour le bouton Supprimer */
+.button-delete {
+    color: #f44336; /* Rouge pour supprimer */
+    padding: 0.25em 0.8rem;
+    border: 1px solid #f44336;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.button-delete:hover {
+    background-color: #c61103;
+    color:white;
+}
+
+
+/* Définition des styles pour les révisions de A à F avec des déclinaisons de violet et ajout de bordures */
+
+/* Rev-A: Light violet */
+.Rev {
+    padding: 4px 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+.Rev-A {
+    background-color: #EDE7F6; /* Violet très clair */
+    color: #4A148C; /* Texte en violet foncé pour un bon contraste */
+    border: 2px solid #b095e1; /* Bordure légèrement plus foncée */
+
+}
+
+/* Rev-B: Light-medium violet */
+.Rev-B {
+    background-color: #D1C4E9; /* Violet clair-moyen */
+    color: #311B92; /* Texte en violet encore plus foncé */
+    border: 2px solid #8453df; /* Bordure légèrement plus foncée */
+
+}
+
+/* Rev-C: Medium violet */
+.Rev-C {
+    background-color: #B39DDB; /* Violet moyen */
+    color: #29056e; /* Texte en violet très foncé */
+    border: 2px solid #7b4bd3; /* Bordure légèrement plus foncée */
+
+}
+
+/* Rev-D: Medium-dark violet */
+.Rev-D {
+    background-color: #9575CD; /* Violet foncé moyen */
+    color: #2e0975; /* Texte en violet très foncé */
+    border: 2px solid #3a069a; /* Bordure légèrement plus foncée */
+
+}
+
+/* Rev-E: Dark violet */
+.Rev-E {
+    background-color: #7E57C2; /* Violet foncé */
+    color: #FFFFFF; /* Texte blanc pour un bon contraste */
+    border: 2px solid #3a069a; /* Bordure légèrement plus foncée */
+
+}
+
+/* Rev-F: Darker violet */
+.Rev-F {
+    background-color: #673AB7; /* Violet très foncé */
+    color: #FFFFFF; /* Texte blanc pour un bon contraste */
+    border: 2px solid #3a069a; /* Bordure légèrement plus foncée */
+
+}
+
+/* Style pour le texte en gras */
+.text-strong {
+    color: #4A4A4A; /* Gris moyen pour le texte en gras */
+    font-weight: 600;
+}
+
+/* Style pour le texte normal */
+.text-muted {
+    color: #858484; /* Gris plus clair pour le texte normal */
+    font-weight: 400;
+}
+
+.ck .ck--ring--focus {
+    border: 1px solid #6316e8!important;  /* Par exemple, changer la couleur de bordure */
+}
