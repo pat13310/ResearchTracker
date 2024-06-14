@@ -3,19 +3,56 @@
 {% block title %}Détails du Flux RSS{% endblock %}
 
 {% block content %}
-<div class="p-4 container mx-auto mt-10 bg-white rounded-md shadow shadow-gray-800">
+    <div class="p-4 container mx-auto mt-10 bg-white rounded-md shadow shadow-gray-800">
 
-    <h1 class="flex items-center text-2xl font-semibold mb-4 text-violet-900"><i data-feather="rss" class="xl-icon mr-2 "></i>Articles provenant de {{ feed.title }}</h1>
-    <ul>
-        {% for entry in entries %}
-            <li class="p-4 py-6 mb-3 border border-violet-600 rounded-md shadow shadow-gray-800">
-                <a href="{{ entry.link }}" target="_blank" class="text-xl font-semibold text-violet-800 hover:text-violet-700 hover:underline ">
-                    {{ entry.title }}
-                </a>
-                <p class="text-gray-900 mt-2 mb-2">{{ entry.summary }}</p>
-                <p class="text-sm text-gray-500">{{ entry.published|format_datetime  }}</p>
-            </li>
-        {% endfor %}
-    </ul>
-</div>
+        <h1 class="flex items-center text-2xl font-semibold mb-4 text-violet-900"><i data-feather="rss"
+                                                                                     class="xl-icon mr-2 "></i>Articles
+            provenant de {{ feed.title }}</h1>
+        <ul>
+            {% for entry in entries %}
+                <li class="p-4 py-6 mb-3 border border-violet-600 rounded-md shadow shadow-gray-800">
+                    <a href="{{ entry.link }}" target="_blank"
+                       class="text-xl font-semibold text-violet-800 hover:text-violet-700 hover:underline ">
+                        {{ entry.title }}
+                    </a>
+                    <p class="text-gray-900 mt-2 mb-2">{{ entry.summary|safe }}</p>
+                    <p class="text-sm text-gray-500">{{ entry.published|format_datetime }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        const size_plus = document.getElementById("text_resize_increase")
+        const size_minus = document.getElementById("text_resize_decrease")
+        const clearfix = document.querySelector(".clearfix")
+        const defaultFontSize = 16;
+        let currentFontSize = defaultFontSize;
+        if (size_plus) {
+            //size_minus.removeAttribute("href");
+            ///size_plus.removeAttribute("href");
+
+
+            size_plus.addEventListener("click", () => {
+                event.preventDefault();
+                 if (currentFontSize>52)
+                    currentFontSize=52
+                currentFontSize += 2;
+                updateTextSize()
+            })
+            size_minus.addEventListener("click", () => {
+                event.preventDefault();
+                currentFontSize -= 2;
+                if (currentFontSize<14)
+                    currentFontSize=14
+                updateTextSize()
+            })
+
+            function updateTextSize() {
+                clearfix.style.fontSize = currentFontSize + 'px';
+            }
+        }
+    </script>
 {% endblock %}

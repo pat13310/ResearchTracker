@@ -265,3 +265,20 @@
 .ck .ck--ring--focus {
     border: 1px solid #6316e8!important;  /* Par exemple, changer la couleur de bordure */
 }
+
+.changer{
+    font-weight: 700;
+    /*border-radius: 50%;*/
+    /*border: 1px solid #381875;*/
+    /*color:#381875;*/
+    /*background-color: #c3b7d6;*/
+    padding: 4px;
+}
+
+.changer:hover{
+    /*border-radius: 50%;*/
+    /*border: 1px solid  #2e0975;*/
+    color:#2e0975;
+    /*background-color: #bca7dd;*/
+    padding: 4px;
+}
