@@ -1,0 +1,24 @@
+<!-- templates/publications/publication_version_form.html -->
+{% extends "base.html" %}
+
+{% block title %}Modifier la Version - ResearchTracker{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto mt-2">
+        <div class="bg-white shadow-md rounded p-6 text-sm">
+            <h2 class="text-xl font-semibold mb-4 text-violet-900">Modifier la Version</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="flex justify-between">
+                    <button type="submit" class="btn-save">
+                        Enregistrer les modifications
+                    </button>
+                    <a href="{% url 'publication-detail' form.instance.publication.pk %}" class="py-2 px-4 rounded ml-4 bg-gray-50 text-gray-700 border-2 border-gray-300 hover:text-gray-900 hover:bg-gray-100">
+                        Annuler
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

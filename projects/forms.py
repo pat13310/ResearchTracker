@@ -3,6 +3,7 @@
 from django import forms
 from .models import Project
 from datetime import datetime
+from django_ckeditor_5.widgets import CKEditor5Widget
 
 
 class ProjectForm(forms.ModelForm):
@@ -31,10 +32,7 @@ class ProjectForm(forms.ModelForm):
                 'class': 'custom-input',
                 'placeholder': 'Titre'
             }),
-            'description': forms.Textarea(attrs={
-                'class': 'custom-input',
-                'placeholder': 'Description'
-            }),
+            'description': CKEditor5Widget(config_name="default"),
             'start_date': forms.DateInput(attrs={
                 'class': 'custom-input',
                 'type': 'date',

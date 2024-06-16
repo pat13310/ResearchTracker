@@ -36,17 +36,11 @@
 {% block js %}
     <script src="{% static 'js/voiceRecognition.js' %}"></script>
     <script type="module">
-
         document.addEventListener("DOMContentLoaded", function () {
-
-            const wordCountElement = document.querySelector('.ck.ck-word-count');
-            if (wordCountElement) {
-                wordCountElement.style.display = 'none';
-            }
+            hideCounter();
             VoiceRecognition();
             TTS_Voice();
         });
-
     </script>
 {% endblock %}
 

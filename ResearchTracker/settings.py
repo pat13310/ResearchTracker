@@ -42,12 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.syndication',
     'rest_framework',
-    'authentication',
-    'projects',
-    'publications',
+    'authentication.apps.AuthenticationConfig',
+    'projects.apps.ProjectsConfig',
+    'publications.apps.PublicationsConfig',
     'reports',
     'notifications',
-    'fundings',
+    'fundings.apps.FundingsConfig',
     "dashboard.apps.DashboardConfig",
     "userprofile.apps.UserprofileConfig",
     "summarizer.apps.SummarizerConfig",
@@ -153,12 +153,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = 'fr-FR'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
+# settings.py
+TIME_ZONE = 'Europe/Paris'  # ou le fuseau horaire approprié
 USE_TZ = True
+USE_I18N = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

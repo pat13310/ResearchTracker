@@ -3,11 +3,11 @@
 {% block title %}Accueil - ResearchTracker{% endblock %}
 
 {% block content %}
-<div class="bg-white shadow rounded-lg p-6  min-h-screen">
-    <h2 class="text-2xl font-bold mb-4 text-violet-800">Dernières actualités</h2>
-    <div class="flex gap-y-4 ">
+<div class="bg-white shadow rounded-lg p-4  min-h-screen mt-2">
+    <h2 class="text-xl font-semibold mb-4 text-violet-800 flex items-center"><i data-feather="rss" class="xl-icon mr-2 feather-icon"></i>Dernières actualités</h2>
+    <div class="grid grid-cols-2 gap-4 ">
         {% for rss_feed in rss_feeds %}
-            <div class="w-1/2 border p-4 bg-gray-100 rounded-lg shadow-md mr-3 mb-2 ">
+            <div class="border p-4 bg-gray-100 rounded-lg shadow-md mr-3 mb-2 ">
                 <p class="font-semibold text-lg text-violet-900 mb-2">{{ rss_feed.title }}</p>
                 <p class="text-sm text-gray-600 break-words mb-2">{{ rss_feed.url }}</p>
                 <p class="text-sm text-gray-600 ">{{ rss_feed.description }}</p>
@@ -18,7 +18,7 @@
         {% endfor %}
     </div>
 
-    <h2 class="text-2xl font-bold mb-4 text-violet-800 mt-10">Publications</h2>
+    <h2 class="text-xl font-semibold mb-4 text-violet-800 mt-10 flex items-center"><i data-feather="book" class="xl-icon mr-2 feather-icon"></i>Publications</h2>
     <div class="flex gap-4">
         {% for publication in publications %}
             <div class="w-1/2 border p-4 bg-gray-100 rounded-lg shadow-md mr-3 ">

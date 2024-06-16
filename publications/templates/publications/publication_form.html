@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Modifier/Créer une Publication - ResearchTracker{% endblock %}
 
 {% block content %}
-<div class="container mx-auto mt-10 w-1/2 ">
+<div class="container mx-auto mt-0 w-1/2 ">
     <h2 class="text-2xl font-bold mb-4 text-violet-800">{{ view.title }}</h2>
     <form method="post" class="space-y-4 bg-white rounded-md shadow shadow-gray-800 p-4 ">
         {% csrf_token %}
@@ -19,14 +20,27 @@
             {{ form.project }}
         </div>
         <div>
-            {{ form.journal }}
+            {{ form.journal|safe }}
         </div>
         <div>
             {{ form.doi }}
         </div>
-        <div>
-            <button type="submit" class="bg-violet-800 text-white px-4 py-2 rounded hover:bg-violet-950">Enregistrer</button>
+        <div class="flex justify-between">
+            <button type="submit" class="btn-save">Enregistrer</button>
+            <button class="btn-cancel">Annuler</button>
         </div>
     </form>
 </div>
 {% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/voiceRecognition.js' %}"></script>
+    <script type="module">
+        document.addEventListener("DOMContentLoaded", function () {
+            hideCounter();
+            VoiceRecognition();
+            TTS_Voice();
+        });
+    </script>
+{% endblock %}
+

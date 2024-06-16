@@ -125,5 +125,11 @@ function TTS_Voice() {
         console.log("Ce navigateur ne supporte pas le TTS");
     }
 
+}
 
+function hideCounter() {
+    const wordCountElement = document.querySelector('.ck.ck-word-count');
+    if (wordCountElement) {
+        wordCountElement.style.display = 'none';
+    }
 }

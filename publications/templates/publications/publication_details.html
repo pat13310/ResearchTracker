@@ -4,7 +4,7 @@
 {% block title %}Détails de la Publication - ResearchTracker{% endblock %}
 
 {% block content %}
-    <div class="container mx-auto mt-0" xmlns="http://www.w3.org/1999/html">
+    <div class="container mx-auto mt-2" xmlns="http://www.w3.org/1999/html">
         <div class="bg-white shadow-md rounded p-6 text-sm">
             <nav class="flex items-center text-xl mb-6 t text-violet-600 space-x-2">
                 <a href="{% url 'dashboard' %}" class="flex items-center hover:underline">
@@ -15,66 +15,187 @@
                 <i data-feather="chevron-right" class="mr-2 md-icon feather-icon"></i>
                 <span class="font-semibold">{{ publication.title }}</span>
             </nav>
-            <p class="mb-2 text-strong">Auteurs :
-                <span class="text-muted">{{ publication.authors }}</span>
-            </p>
+            <hr>
+            <div class="grid w-full grid-cols-2 divide-x-2  divide-violet-300 space-x-2">
+                <div class="w-1/2 mr-2 p-2">
+                    <p class="mb-2 text-strong">Auteurs : <span class="text-muted">{{ publication.authors }}</span></p>
+                    <p class="mb-2 text-strong">Date de publication : <span
+                            class="text-muted">{{ publication.publication_date|date:"d F Y" }}</span></p>
+                    <p class="mb-2 text-strong">Projet : <span class="text-muted">{{ publication.project }}</span></p>
+                    <p class="mb-2 text-strong">DOI : <span class="text-muted">{{ publication.doi }}</span></p>
+                    <p class="mb-2 text-strong">Source : <span
+                            class="text-muted">{{ publication.get_source_display }}</span></p>
+                    <p class="mb-2 text-strong">Date de création : <span
+                            class="text-muted">{{ publication.created_at|date:"d F Y à H:i" }}</span></p>
+                </div>
+                <div class="px-6">
+                    {% if current_version %}
+                        <div class="flex justify-between items-center w-full mb-4">
+                            <div class="text-md text-violet-900 font-semibold">Version actuelle
+                                <span class="text-sm ml-2 font-thin Rev {{ current_version.version }}">{{ current_version.version }}</span>
+                            </div>
+                            <a href="{% url 'publication-version-edit' publication.pk current_version.pk %}" class="bg-violet-800 hover:bg-violet-900 text-white py-2 px-4 rounded flex items-center">
+                                <i data-feather="edit" class="sm-icon mr-2"></i> Modifier
+                            </a>
+                        </div>
+                        <p class="mb-2 text-strong">Titre :<span
+                                class="text-muted"> {{ current_version.title }}</span></p>
+                        <p class="mb-2 text-strong">Auteurs :<span
+                                class="text-muted"> {{ current_version.authors }}</span></p>
+                        <p class="mb-2 text-strong">Date de publication : <span
+                                class="text-muted">{{ current_version.publication_date|date:"d F Y" }}</span>
+                        </p>
 
-            <p class="mb-2 text-strong">Date de publication :
-                <span class="text-muted">{{ publication.publication_date|date:"d F Y" }}</span>
-            </p>
-
-            <p class="mb-2 text-strong">Projet :
-                <span class="text-muted">{{ publication.project }}</span>
-            </p>
-
-            <p class="mb-2 text-strong">Journal :
-                <span class="text-muted">{{ publication.journal }}</span>
-            </p>
-
-            <p class="mb-2 text-strong">DOI :
-                <span class="text-muted">{{ publication.doi }}</span>
-            </p>
-
-            <p class="mb-2 text-strong">Source :
-                <span class="text-muted">{{ publication.get_source_display }}</span>
-            </p>
-
-            <p class="mb-2 text-strong">Date de création :
-                <span class="text-muted">{{ publication.created_at|date:"d F Y à H:i" }}</span>
-            </p>
-
-            {% if publication.current_version %}
-                <h2 class="text-md text-violet-900 font-semibold mt-6 mb-2">Version actuelle</h2>
-                <p class="mb-2 text-strong">Titre :<span class="text-muted"> {{ publication.current_version.title }}</span></p>
-                <p class="mb-2 text-strong">Auteurs :<span class="text-muted"> {{ publication.current_version.authors }}</span></p>
-                <p class="mb-2 text-strong">Date de publication :<span class="text-muted">{{ publication.current_version.publication_date|date:"d F Y" }}</span></p>
-                <p class="mb-2 text-strong">Journal :<span class="text-muted"> {{ publication.current_version.journal }}</span></p>
-                <p class="mb-2 text-strong">DOI :<span class="text-muted"> {{ publication.current_version.doi }}</span></p>
-                <p class="mb-2 text-strong">Date de création :<span class="text-muted"> {{ publication.current_version.created_at|date:"d F Y H:i" }}</span></p>
-
-                {% if publication.current_version.media_files.exists %}
-                    <h3 class="text-md  text-violet-900 font-semibold mt-4 mb-2">Fichiers média</h3>
-                    <ul>
-                        {% for media in publication.current_version.media_files.all %}
-                            <li>
-                                <a href="{{ media.file.url }}" target="_blank">{{ media.description }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-                {% if publication.versions.exists %}
-                    <h3 class="text-md text-violet-900 font-semibold mt-4 mb-2">Versions</h3>
-                    <ul>
-                        {% for pub in publication.versions.all %}
-                            <li class=" hover:text-violet-600">
-                                <span class="hover:no-underline mr-2 Rev text-sm {{ pub.version }}">{{ pub.version }}</span>
-                                <a class="hover:underline" href="{{ pub.file.url }}" target="_blank">{{ pub.title }}
-                                    du {{ pub.created_at|date:"d F Y à H:i" }} </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endif %}
+                        <p class="mb-2 text-strong">DOI :<span
+                                class="text-muted"> {{ current_version.doi }}</span></p>
+                        <p class="mb-2 text-strong">Date de création :<span
+                                class="text-muted"> {{ current_version.created_at|date:"d F Y H:i" }}</span>
+                        </p>
+                        </div>
+                        </div>
+                        {% if publication.current_version.media_files.exists %}
+                            <h3 class="text-md  text-violet-900 font-semibold mt-4 mb-2">Fichiers média</h3>
+                            <ul>
+                                {% for media in publication.current_version.media_files.all %}
+                                    <li>
+                                        <a href="{{ media.file.url }}" target="_blank">{{ media.description }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        <hr>
+                        {% if publication.current_version and publication.current_version.version != 'Rev-G' %}
+                            <button id="addVersionButton"
+                                    class="flex items-center my-2 rounded bg-violet-900 hover:bg-violet-950 text-white px-4 py-2">
+                                <span class="mr-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none"
+                                         stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round"
+                                         class="feather feather-plus-circle">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                                    </svg>
+                                </span>
+                                Ajouter une nouvelle version
+                            </button>
+                        {% endif %}
+                        <hr>
+                        {% if publication.versions.exists %}
+                            <h3 class="text-md text-violet-900 font-semibold mt-4 mb-2">Versions disponibles</h3>
+                            <ul>
+                                {% for version in versions %}
+                                    <li class=" hover:text-violet-600 mb-4">
+                                        <span class="hover:no-underline mr-2 Rev text-sm {{ version.version }}">{{ version.version }}</span>
+                                        <a class="hover:underline"
+                                           href="{% url 'publication-detail' publication.pk %}?version_pk={{ version.pk }}"
+                                           >{{ version.title }}
+                                            du {{ version.created_at|date:"d F Y à H:i" }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endif %}
         </div>
     </div>
+
+    <!-- Modal Form for adding new version -->
+    <div id="addVersionModal" class="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-75 hidden">
+        <div class="block container bg-white rounded-lg overflow-hidden shadow-xl shadow-black w-full max-w-lg p-4">
+            <h2 class="text-xl font-semibold mb-4 text-violet-900">Ajouter une nouvelle version</h2>
+            <hr>
+            <form id="addVersionForm" method="post" action="{% url 'publication-add-version' publication.pk %}">
+                {% csrf_token %}
+                <div class="flex w-full mx-auto">
+                    <div class="w-full mb-4 mr-2">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Titre</label>
+                        <input type="text" name="title" id="title" value="{{ publication.title }}" readonly
+                               class="custom-input">
+                    </div>
+                    <div class="mb-4 w-full mr-2">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="authors">Auteurs</label>
+                        <input type="text" name="authors" id="authors" required
+                               class="custom-input">
+                    </div>
+                    <div class="mb-4 w-full">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="publication_date">Date de
+                            publication</label>
+                        <input type="date" name="publication_date" id="publication_date" required
+                               class="px-4 custom-input">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="journal">Contenu</label>
+                    <textarea name="journal" id="journal" rows="3" class="custom-input"></textarea>
+                </div>
+                <div class="mb-4">
+                    <input type="hidden" name="doi" id="doi" value="{{ publication.doi }}">
+                </div>
+                <div class="flex items-center justify-between mb-0">
+                    <button type="submit"
+                            class="btn-save">
+                        Ajouter
+                    </button>
+                    <button type="button" id="closeModalButton"
+                            class="btn-cancel">
+                        Annuler
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addVersionButton = document.getElementById('addVersionButton');
+            const addVersionModal = document.getElementById('addVersionModal');
+            const closeModalButton = document.getElementById('closeModalButton');
+            const publicationDateInput = document.getElementById('publication_date');
+
+            // Ouvrir le modal
+            if (addVersionButton ==null )
+                return;
+
+            addVersionButton.addEventListener('click', function () {
+                // Mettre à jour la date de publication avec la date actuelle
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0'); // Mois commence à 0, donc ajouter 1
+                const day = String(now.getDate()).padStart(2, '0');
+                publicationDateInput.value = `${year}-${month}-${day}`;
+
+                // Afficher le modal
+                addVersionModal.classList.remove('hidden');
+            });
+
+            // Fermer le modal
+            closeModalButton.addEventListener('click', function () {
+                addVersionModal.classList.add('hidden');
+            });
+
+            // Fermer le modal si l'utilisateur clique en dehors
+            window.addEventListener('click', function (event) {
+                if (event.target === addVersionModal) {
+                    addVersionModal.classList.add('hidden');
+                }
+            });
+
+            ClassicEditor
+                .create(document.querySelector('#journal'), {
+                    toolbar: [
+                        'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote',
+                        'undo', 'redo', 'alignment', 'indent', 'outdent', 'fontColor', 'fontSize', 'highlight',
+                        'insertTable', 'mediaEmbed'
+                    ]
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    </script>
 {% endblock %}

@@ -17,8 +17,8 @@
             <span class="font-semibold">{{ project.title }}</span>
         </nav>
         <hr class="my-4">
-        <p class="mb-4 text-gray-600 font-semibold ">Description:<span
-                class="ml-2 font-normal text-gray-500">{{ project.description }}</span></p>
+{#        <p class="mb-4 text-gray-600 font-semibold ">Description:<span#}
+{#                class="ml-2 font-normal text-gray-500">{{ project.description }}</span></p>#}
         <p class="mb-4 text-gray-600 font-semibold ">Date de début:<span
                 class="ml-2 font-normal text-gray-500">{{ project.start_date|date:"d F Y" }}</span></p>
         <p class="mb-4 text-gray-600 font-semibold ">Date de fin:<span
@@ -26,15 +26,15 @@
         <p class="mb-4 text-gray-600 font-semibold ">Statut:<span
                 class="ml-2 badge badge-{{ project.status }}">{{ project.get_status_display }}</span></p>
 
-        <h3 class="text-xl font-semibold mt-6 mb-4 text-violet-600">Publications associées</h3>
+        <h3 class="text-md font-semibold mt-6 mb-4 text-violet-600">Publications associées</h3>
         {% if publications %}
-            <table class="min-w-full bg-white mt-6 shadow-lg rounded">
+            <table class="min-w-full bg-white mt-6 shadow-lg rounded text-sm">
                 <thead>
                 <tr class="bg-violet-500 text-white">
                     <th class="py-2 px-4">Titre</th>
                     <th class="py-2 px-4">Auteurs</th>
                     <th class="py-2 px-4">Date de publication</th>
-                    <th class="py-2 px-4">Journal</th>
+{#                    <th class="py-2 px-4">Journal</th>#}
                     <th class="py-2 px-4">DOI</th>
                     <th class="py-2 px-4">Statut</th>
                 </tr>
@@ -46,7 +46,7 @@
                                                  href="">{{ publication.title }}</a></td>
                         <td class="py-2 px-4">{{ publication.authors }}</td>
                         <td class="py-2 px-4">{{ publication.publication_date|date:"d F Y" }}</td>
-                        <td class="py-2 px-4">{{ publication.journal }}</td>
+{#                        <td class="py-2 px-4">{{ publication.journal }}</td>#}
                         <td class="py-2 px-4">{{ publication.doi }}</td>
                         <td class="py-2 px-4">
                             <span class="badge badge-{{ project.status }}">{{ project.get_status_display }}</span>
@@ -56,7 +56,7 @@
                 </tbody>
             </table>
         {% else %}
-            <p>Aucune publication associée à ce projet.</p>
+            <p class="text-sm text-gray-700">Aucune publication associée à ce projet.</p>
         {% endif %}
     </div>
 {% endblock %}

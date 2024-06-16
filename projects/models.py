@@ -1,5 +1,5 @@
 from django.db import models
-
+from django_ckeditor_5.fields import CKEditor5Field
 from ResearchTracker import settings
 
 
@@ -13,7 +13,7 @@ class Project(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='owned_projects', on_delete=models.CASCADE)
     collaborators = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='collaborative_projects', blank=True)
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    description = CKEditor5Field(blank=True, null=True)
     start_date = models.DateField()
     end_date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='in_progress')

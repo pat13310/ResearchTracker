@@ -1,13 +1,17 @@
 {% extends "base.html" %}
-{% load custom_filters %}
+{% load struct_filters %}
 {% block title %}Détails du Flux RSS{% endblock %}
 
 {% block content %}
-    <div class="p-4 container mx-auto mt-10 bg-white rounded-md shadow shadow-gray-800">
+    <div class="p-4 container mx-auto mt-2 bg-white rounded-md shadow shadow-gray-800">
 
-        <h1 class="flex items-center text-2xl font-semibold mb-4 text-violet-900"><i data-feather="rss"
-                                                                                     class="xl-icon mr-2 "></i>Articles
-            provenant de {{ feed.title }}</h1>
+        <nav class="flex items-center  text-xl mb-6 t text-violet-600 space-x-2">
+            <a href="{% url 'home' %}" class="flex items-center hover:underline">
+                <i data-feather="home" class="mr-2 md-icon feather-icon"></i>Accueil</a>
+            <i data-feather="chevron-right" class="mr-2 md-icon feather-icon"></i>
+            <h1 class="flex items-center text-xl font-semibold text-violet-600">
+                <i data-feather="rss" class="mr-2 md-icon feather-icon"></i>Articles {{ feed.title }}</h1>
+        </nav>
         <ul>
             {% for entry in entries %}
                 <li class="p-4 py-6 mb-3 border border-violet-600 rounded-md shadow shadow-gray-800">
@@ -16,7 +20,7 @@
                         {{ entry.title }}
                     </a>
                     <p class="text-gray-900 mt-2 mb-2">{{ entry.summary|safe }}</p>
-                    <p class="text-sm text-gray-500">{{ entry.published|format_datetime }}</p>
+                    <p class="text-sm text-gray-500">{{ entry.published_parsed|to_datetime|date:"D d F Y à H:i" }}</p>
                 </li>
             {% endfor %}
         </ul>
@@ -25,34 +29,39 @@
 
 {% block js %}
     <script>
-        const size_plus = document.getElementById("text_resize_increase")
-        const size_minus = document.getElementById("text_resize_decrease")
-        const clearfix = document.querySelector(".clearfix")
-        const defaultFontSize = 16;
-        let currentFontSize = defaultFontSize;
-        if (size_plus) {
-            //size_minus.removeAttribute("href");
-            ///size_plus.removeAttribute("href");
+        const size_plus_buttons = document.querySelectorAll("#text_resize_increase");
+        const size_minus_buttons = document.querySelectorAll("#text_resize_decrease");
 
-
-            size_plus.addEventListener("click", () => {
+        size_plus_buttons.forEach(anchor => {
+            anchor.href = '#'
+            anchor.addEventListener("click", function (event) {
                 event.preventDefault();
-                 if (currentFontSize>52)
-                    currentFontSize=52
-                currentFontSize += 2;
-                updateTextSize()
-            })
-            size_minus.addEventListener("click", () => {
-                event.preventDefault();
-                currentFontSize -= 2;
-                if (currentFontSize<14)
-                    currentFontSize=14
-                updateTextSize()
-            })
+                adjustFontSize(anchor, 2);
+            });
+        });
 
-            function updateTextSize() {
+        size_minus_buttons.forEach(anchor => {
+            anchor.href = '#'
+            anchor.addEventListener("click", function (event) {
+                event.preventDefault();
+                adjustFontSize(anchor, -2);
+            });
+        });
+
+        function adjustFontSize(elem, adjustment) {
+            const clearfix = elem.parentElement.nextElementSibling;
+            if (clearfix) {
+                let currentFontSize = parseFloat(window.getComputedStyle(clearfix).fontSize);
+                currentFontSize += adjustment;
+                if (currentFontSize > 52) currentFontSize = 52;
+                if (currentFontSize < 14) currentFontSize = 14;
                 clearfix.style.fontSize = currentFontSize + 'px';
             }
+        }
+
+        function updateTextSize() {
+            clearfix.style.fontSize = currentFontSize + 'px';
+
         }
     </script>
 {% endblock %}

@@ -1,6 +1,7 @@
 from django import forms
 from .models import Publication, PublicationVersion, Media
 from datetime import date, datetime
+from django_ckeditor_5.widgets import CKEditor5Widget
 
 
 class PublicationForm(forms.ModelForm):
@@ -43,10 +44,7 @@ class PublicationForm(forms.ModelForm):
             'project': forms.Select(attrs={
                 'class': 'custom-input'
             }),
-            'journal': forms.TextInput(attrs={
-                'class': 'custom-input',
-                'placeholder': 'Journal'
-            }),
+            'journal': CKEditor5Widget(config_name='default'),
             'doi': forms.TextInput(attrs={
                 'class': 'custom-input',
                 'placeholder': 'DOI'
@@ -55,6 +53,7 @@ class PublicationForm(forms.ModelForm):
 
 
 class PublicationVersionForm(forms.ModelForm):
+    journal = forms.CharField(widget=CKEditor5Widget(), required=False)
     media_files = forms.ModelMultipleChoiceField(
         queryset=Media.objects.all(),
         widget=forms.CheckboxSelectMultiple,
@@ -63,7 +62,21 @@ class PublicationVersionForm(forms.ModelForm):
 
     class Meta:
         model = PublicationVersion
-        fields = ['title', 'authors', 'publication_date', 'journal', 'doi', 'media_files']
+        fields = ['title', 'authors', 'publication_date', 'journal']
+        labels = {"title": "Titre", "authors": "Auteurs", "publication_date": "Date de publication", }
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'custom-input mb-4 text-sm',
+                'placeholder': 'Titre'
+            }),
+            'authors': forms.TextInput(attrs={
+                'class': 'custom-input mb-4 text-sm',
+                'placeholder': 'Auteurs'
+            }), 'publication_date': forms.DateInput(attrs={
+                'class': 'custom-input mb-4 text-sm',
+                'type': 'date',
+                'format': 'YYYY-MM-DD'
+            }), }
 
 
 class MediaForm(forms.ModelForm):

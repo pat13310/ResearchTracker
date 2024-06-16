@@ -1,3 +1,6 @@
+import os
+
+import django
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
@@ -7,6 +10,9 @@ from publications.models import Publication
 from .forms import ProjectForm
 from .models import Project
 from serializers import ProjectSerializer
+
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ResearchTracker.settings')
+# django.setup()
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -55,7 +61,7 @@ class ProjectListView(ListView):
             if search_by == 'title':
                 queryset = queryset.filter(title__icontains=query)
             elif search_by == 'date':
-                queryset = queryset.filter(project_date__icontains=query)
+                queryset = queryset.filter(start_date__icontains=query)
         return queryset
 
     def get_context_data(self, **kwargs):

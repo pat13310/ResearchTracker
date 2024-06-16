@@ -3,6 +3,7 @@ from django.conf import settings
 from projects.models import Project
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class Media(models.Model):
@@ -24,16 +25,17 @@ class Media(models.Model):
 class Publication(models.Model):
     SOURCE_CHOICES = [
         ('web', 'Web'),
-        ('manual', 'Manual'),
+        ('manuelle', 'Manuelle'),
     ]
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200)
     authors = models.TextField()
     publication_date = models.DateField()
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='publications', null=True, blank=True)
-    journal = models.CharField(max_length=200)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='publications', null=True, blank=True,
+                                default="Aucun")
+    journal = CKEditor5Field(blank=True, null=True)
     doi = models.CharField(max_length=100)
-    source = models.CharField(max_length=10, choices=SOURCE_CHOICES, default='manual')
+    source = models.CharField(max_length=10, choices=SOURCE_CHOICES, default='manuelle')
     initial_version = models.ForeignKey('PublicationVersion', null=True, blank=True, on_delete=models.SET_NULL,
                                         related_name='initial_publication')
     current_version = models.ForeignKey('PublicationVersion', null=True, blank=True, on_delete=models.SET_NULL,
@@ -45,12 +47,12 @@ class Publication(models.Model):
 
 
 class PublicationVersion(models.Model):
-    publication = models.ForeignKey(Publication, on_delete=models.CASCADE, related_name='versions')
+    publication = models.ForeignKey(Publication, on_delete=models.CASCADE, related_name='versions', blank=True,
+                                    null=True)
     title = models.CharField(max_length=200)
-    authors = models.TextField()
-    content = models.TextField()  # Ajout du contenu de la publication
+    authors = models.CharField(max_length=200)
     publication_date = models.DateField()
-    journal = models.CharField(max_length=200, blank=True, null=True)
+    journal = CKEditor5Field(blank=True, null=True)  # contenu du journal
     doi = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now=True)
     version = models.CharField(max_length=10, blank=True)
@@ -60,7 +62,7 @@ class PublicationVersion(models.Model):
         if not self.version:
             self.version = self.calculate_version()
         super().save(*args, **kwargs)
-        
+
     def __str__(self):
         return f"Version {self.pk} de {self.title}"
 

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Modifier la Version - ResearchTracker{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto mt-2">
+        <div class="bg-white shadow-md rounded p-6">
+            <nav class="flex items-center text-xl mb-6 t text-violet-600 space-x-2">
+                <a href="{% url 'dashboard' %}" class="flex items-center hover:underline">
+                    <i data-feather="home" class="mr-2 md-icon feather-icon"></i>Accueil</a>
+                <i data-feather="chevron-right" class="mr-2 md-icon feather-icon"></i>
+                <a href="{% url 'publications-list' %}" class="flex items-center hover:underline">
+                    <i data-feather="list" class="mr-2 md-icon feather-icon"></i>Liste des Publications</a>
+                <i data-feather="chevron-right" class="mr-2 md-icon feather-icon"></i>
+{#                <a href="{% url 'publication-detail' publication.pk %}" class="flex items-center hover:underline">{{ publication.title }}</a>#}
+            </nav>
+            <h2 class="text-xl font-semibold mb-4 text-violet-600">Modifier la Version</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4 mb-4">
+                    <div>
+                        <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Titre</label>
+                        {{ form.title }}
+                    </div>
+                    <div>
+                        <label for="authors" class="block text-gray-700 text-sm font-bold mb-2">Auteurs</label>
+                        {{ form.authors }}
+                    </div>
+                    <div>
+                        <label for="publication_date" class="block text-gray-700 text-sm font-bold mb-2">Date de
+                            publication</label>
+                        <input type="date" name="publication_date" value="{{ formatted_publication_date }}"
+                               class="custom-input mb-4 text-sm" required id="id_publication_date">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="journal" class="block text-gray-700 text-sm font-bold mb-2">Contenu</label>
+                    {{ form.journal }}
+                </div>
+                <div class="mb-4">
+                    <input type="hidden" name="doi" id="doi" value="{{ form.doi.value }}">
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="btn-save">
+                        Enregistrer
+                    </button>
+                    <a href="{% url 'publication-detail' publication_pk %}" class="btn-cancel">
+                        Annuler
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/voiceRecognition.js' %}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            hideCounter();
+            VoiceRecognition();
+            TTS_Voice();
+        });
+    </script>
+{% endblock %}
