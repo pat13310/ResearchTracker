@@ -3,7 +3,7 @@
 {% block title %}Modifier/Créer une Publication - ResearchTracker{% endblock %}
 
 {% block content %}
-<div class="container mx-auto mt-0 w-1/2 ">
+<div class="container mx-auto mt-1  ">
     <h2 class="text-2xl font-bold mb-4 text-violet-800">{{ view.title }}</h2>
     <form method="post" class="space-y-4 bg-white rounded-md shadow shadow-gray-800 p-4 ">
         {% csrf_token %}
@@ -27,7 +27,7 @@
         </div>
         <div class="flex justify-between">
             <button type="submit" class="btn-save">Enregistrer</button>
-            <button class="btn-cancel">Annuler</button>
+            <a href="{% url 'publications-list' %}" class="btn-cancel">Annuler</a>
         </div>
     </form>
 </div>
@@ -35,7 +35,7 @@
 
 {% block js %}
     <script src="{% static 'js/voiceRecognition.js' %}"></script>
-    <script type="module">
+    <script >
         document.addEventListener("DOMContentLoaded", function () {
             hideCounter();
             VoiceRecognition();

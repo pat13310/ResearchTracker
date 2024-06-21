@@ -38,7 +38,6 @@ class ContactUs(View):
         message["From"] = sender_email
         message["To"] = receiver_email
         message["Subject"] = subject
-        host_server = "smtp.laposte.net"
         host_server = "node109-eu.n0c.com"
         # Attacher le corps du message
         message.attach(MIMEText(body, "plain"))

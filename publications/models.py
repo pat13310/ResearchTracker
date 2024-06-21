@@ -85,7 +85,6 @@ def create_initial_version(sender, instance, created, **kwargs):
             publication=instance,
             title=instance.title,
             authors=instance.authors,
-            content='Contenu initial',  # Vous pouvez ajuster ceci
             publication_date=instance.publication_date,
             journal=instance.journal,
             doi=instance.doi

@@ -26,11 +26,6 @@ class UserForm(forms.ModelForm):
         }
 
 
-# 'bio': CKEditorWidget(attrs={
-#                 'class': 'text-sm custom-input mb-2',
-#                 'placeholder': 'Biographie en 5 lignes',
-#             }),
-
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
@@ -44,5 +39,4 @@ class UserProfileForm(forms.ModelForm):
                 'class': 'text-sm custom-input mb-2',
                 'placeholder': 'Localisation géographique',
             })
-
         }

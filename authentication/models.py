@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 from django.db.models.signals import post_save
-
+from django_ckeditor_5.fields import  CKEditor5Field
 
 # from userprofile.models import UserProfile
 
@@ -30,9 +30,15 @@ post_save.connect(post_save_user_receiver, sender=CustomUser)
 
 class UserProfile(models.Model):
     user = models.OneToOneField('CustomUser', on_delete=models.CASCADE)
-    bio = models.TextField(blank=True, null=True)
+    bio = CKEditor5Field(blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
     preferences = models.JSONField(default=dict, blank=True, null=True)
 
     def __str__(self):
         return self.user.username
+
+    class Meta:
+        verbose_name = 'Profil'
+        verbose_name_plural = 'Profils'
+
+

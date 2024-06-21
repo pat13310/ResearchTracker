@@ -9,5 +9,8 @@ class Funding(models.Model):
     end_date = models.DateField()
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='fundings')
 
+    class Meta:
+        verbose_name = 'Donateur'
+        verbose_name_plural = 'Donateurs'
     def __str__(self):
         return f"{self.source} - {self.project.title}"
