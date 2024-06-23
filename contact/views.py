@@ -23,15 +23,14 @@ class ContactUs(View):
     template_name = 'contact/contact-form.html'
 
     # 465 (SSL)/ 587 (TTLS)
-    def create_mail(self):
+    def create_mail(self, subject="Test", from_email="test@mail.com", name="Garcia", body="message de test"):
         # Définir les informations de l'email
-        sender_email = "p-garcia@laposte.net"
         sender_email = "admin@xendev.fr"
-        receiver_email = "patgarcia66240@gmail.com"
+        receiver_email = "webmaster@xendev.fr"
 
         password = "Garcia66240!"
-        subject = "Test Email"
-        body = "Ceci est un test e-mail avec SSL pour vérifier l'envoie de message."
+        subject = subject
+        body = f"Message de {name} [{from_email}] \n{body}"
 
         # Créer le message MIME
         message = MIMEMultipart()
@@ -58,6 +57,9 @@ class ContactUs(View):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            self.create_mail()
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            self.create_mail(from_email=email, name=name, body=message)
             return render(request, 'contact/confirm-send.html')  # Remplacez par l'URL de redirection appropriée
         return render(request, self.template_name, {'form': form})

@@ -1,0 +1,7 @@
+<!-- funding_create_form.html -->
+<form id="fundingForm" method="post" action="{% url 'funding_create' %}">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Utilisation de form.as_p pour rendre les champs du formulaire -->
+    <button type="submit" class="btn-save">Enregistrer</button>
+    <button type="button" class="btn-cancel" id="closeModalButton">Annuler</button>
+</form>

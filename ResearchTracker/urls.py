@@ -36,7 +36,7 @@ urlpatterns = [
     path('projets/', include('projects.urls')),
     path('publications/', include('publications.urls')),
     # path('', include('collaborators.urls')),
-    # path('', include('fundings.urls')),
+    path('fundings/', include('fundings.urls')),
     # path('', include('reports.urls')),
     # path('', include('notifications.urls')),
     path('auth/', include('authentication.urls')),

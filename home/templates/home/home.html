@@ -19,9 +19,9 @@
     </div>
 
     <h2 class="text-xl font-semibold mb-4 text-violet-800 mt-10 flex items-center"><i data-feather="book" class="xl-icon mr-2 feather-icon"></i>Publications</h2>
-    <div class="flex gap-4">
+    <div class="grid grid-cols-2 gap-x-2 gap-y-4">
         {% for publication in publications %}
-            <div class="w-1/2 border p-4 bg-gray-100 rounded-lg shadow-md mr-3 ">
+            <div class="border p-4 bg-gray-100 rounded-lg shadow-md mr-3 ">
                 <p class="text-violet-900 font-semibold text-md mb-2">{{ publication.title }}</p>
                 <p class="text-sm text-gray-600">{{ publication.authors }}</p>
                 <p class="text-sm text-gray-600 mb-2">{{ publication.publication_date|date:"D d M Y" }}</p>

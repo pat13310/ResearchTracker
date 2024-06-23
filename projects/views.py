@@ -11,9 +11,6 @@ from .forms import ProjectForm
 from .models import Project
 from serializers import ProjectSerializer
 
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ResearchTracker.settings')
-# django.setup()
-
 
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
