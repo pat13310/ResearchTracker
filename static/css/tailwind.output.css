@@ -1007,6 +1007,14 @@ video {
   height: 3rem;
 }
 
+.h-24 {
+  height: 6rem;
+}
+
+.h-40 {
+  height: 10rem;
+}
+
 .h-6 {
   height: 1.5rem;
 }
@@ -1061,6 +1069,10 @@ video {
 
 .max-w-2xl {
   max-width: 42rem;
+}
+
+.max-w-full {
+  max-width: 100%;
 }
 
 .max-w-lg {
@@ -1627,6 +1639,12 @@ video {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
@@ -3609,6 +3627,19 @@ video {
   text-shadow: 2px 2px 4px #190245;
 }
 
+.py-area {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.img-preview{
+  -o-object-fit: contain;
+     object-fit: contain;
+  height: 40%;
+  border-radius: 1rem;
+  border: 2px solid #8a60dd;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
@@ -3643,6 +3674,10 @@ video {
       max-width: 1536px;
     }
   }
+}
+
+.hover\:cursor-pointer:hover {
+  cursor: pointer;
 }
 
 .hover\:border-2:hover {
@@ -3696,6 +3731,10 @@ video {
 
 .hover\:font-bold:hover {
   font-weight: 700;
+}
+
+.hover\:font-semibold:hover {
+  font-weight: 600;
 }
 
 .hover\:text-gray-900:hover {

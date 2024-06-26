@@ -45,8 +45,9 @@ urlpatterns = [
     path('api/doi', include('api.urls')),
     path('feeds/', include('feeds.urls')),
     path('contact/', include('contact.urls')),
-    # path('ckeditor/', include('ckeditor_uploader.urls')),
     path('ckeditor5/', include('django_ckeditor_5.urls')),
+    path('note/', include('note.urls')),
+    # path('ckeditor/', include('ckeditor_uploader.urls')),
 
 ]
 

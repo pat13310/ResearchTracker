@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "contact.apps.ContactConfig",
     "home.apps.HomeConfig",
     "django_ckeditor_5",
+    "note",
 
 ]
 
