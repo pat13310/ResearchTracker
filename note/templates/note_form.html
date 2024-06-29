@@ -1,177 +1,177 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container mx-auto mt-2 bg-white p-4 rounded text-violet-900">
-        <nav class="flex items-center text-xl mb-4 text-violet-600 space-x-2">
-            <a href="{% url 'dashboard' %}" class="flex items-center hover:underline">
-                <i data-feather="grid" class="mr-2 md-icon feather-icon"></i>Tableau de bord
-            </a>
-            <i data-feather="chevron-right" class="mr-2 md-icon feather-icon"></i>
-            <a href="{% url 'note-list' %}" class="flex items-center hover:underline">
-                <i data-feather="list" class="mr-2 md-icon feather-icon"></i>Liste des notes
-            </a>
-            <i data-feather="chevron-right" class="mr-2 md-icon feather-icon"></i>
-            <div class="font-semibold">
-                {% if form.instance.pk %}Modifier Note{% else %}Ajouter une Note{% endif %}
-            </div>
-        </nav>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="hidden" id="hidden-file" name="hidden_file">
-            <div class="form-group mb-4 w-1/2 mr-2">
-                <label for="id_title" class="block text-sm font-medium text-gray-700">Titre :</label>
-                {{ form.title }}
-            </div>
-            <div class="form-group mt-4 w-1/2">
-                <label for="id_note_type" class="block text-sm font-medium text-gray-700">Type de note :</label>
-                {{ form.note_type }}
-            </div>
+<div class="container mx-auto mt-2 bg-white p-4 rounded text-violet-900">
+    <nav class="flex items-center text-xl mb-4 text-violet-600 space-x-2">
+        <a href="{% url 'dashboard' %}" class="flex items-center hover:underline">
+            <i data-feather="grid" class="mr-2 md-icon feather-icon"></i>Tableau de bord
+        </a>
+        <i data-feather="chevron-right" class="mr-2 md-icon feather-icon"></i>
+        <a href="{% url 'note-list' %}" class="flex items-center hover:underline">
+            <i data-feather="list" class="mr-2 md-icon feather-icon"></i>Liste des notes
+        </a>
+        <i data-feather="chevron-right" class="mr-2 md-icon feather-icon"></i>
+        <div class="font-semibold">
+            {% if form.instance.pk %}Modifier Note{% else %}Ajouter une Note{% endif %}
+        </div>
+    </nav>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.file }}
+        <input type="hidden" id="hidden-file" name="hidden_file">
+        <div class="form-group mb-4 w-1/2 mr-2">
+            <label for="id_title" class="block text-sm font-medium text-gray-700">Titre :</label>
+            {{ form.title }}
+        </div>
+        <div class="form-group mt-4 w-1/2">
+            <label for="id_note_type" class="block text-sm font-medium text-gray-700">Type de note :</label>
+            {{ form.note_type }}
+        </div>
 
-            <div class="flex space-x-4">
-                <div class="drop-container w-1/2 ">
-                    <label for="drop-area" class="block text-sm font-medium text-gray-700 mb-4">Zone de Drop :</label>
-                    <div id="drop-area"
-                         class="h-40 mt-1 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md hover:font-semibold hover:cursor-pointer">
-                        Déposez vos fichiers ici <i data-feather="plus-circle" class="mx-2 md-icon feather-icon"></i>
-                        cliquez pour télécharger
-                    </div>
-                    <div id="file-list" class="mt-2"></div>
+        <div class="flex space-x-4">
+            <div class="drop-container w-1/2 ">
+                <label for="drop-area" class="block text-sm font-medium text-gray-700 mb-4">Zone de Drop :</label>
+                <div id="drop-area"
+                     class="h-40 mt-1 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md hover:font-semibold hover:cursor-pointer">
+                    Déposez vos fichiers ici <i data-feather="plus-circle" class="mx-2 md-icon feather-icon"></i>
+                    cliquez pour télécharger
                 </div>
-                <div class="content-container w-1/2">
-                    <label for="id_content" class="block text-sm font-medium text-gray-700 mb-4">Contenu :</label>
-                    {% if form.instance.file and form.instance.note_type == 'image' %}
-                        <img src="{{ form.instance.file.url }}" class="max-w-full img-preview object-fit h-24"
-                             alt="Note Image">
-                    {% else %}
-                        {{ form.content }}
-                    {% endif %}
-                </div>
+                <div id="file-list" class="mt-2"></div>
             </div>
+            <div class="content-container w-1/2">
+                <label for="id_content" class="block text-sm font-medium text-gray-700 mb-4">Contenu :</label>
+                {% if form.instance.file and form.instance.note_type == 'image' %}
+                    <img src="{{ form.instance.file.url }}" class="max-w-full img-preview object-fit h-24"
+                         alt="Note Image">
+                {% else %}
+                    {{ form.content }}
+                {% endif %}
+            </div>
+        </div>
 
-            <div class="flex justify-between items-center mt-4 bg-gray-50 p-2">
-                <button type="submit" class="btn-save rounded">Enregistrer</button>
-                <a href="{% url 'note-list' %}"
-                   class="btn btn-cancel bg-gray-500 text-white px-4 py-2 rounded">Annuler</a>
-            </div>
-        </form>
-    </div>
+        <div class="flex justify-between items-center mt-4 bg-gray-50 p-2">
+            <button type="submit" class="btn-save rounded">Enregistrer</button>
+            <a href="{% url 'note-list' %}"
+               class="btn btn-cancel bg-gray-500 text-white px-4 py-2 rounded">Annuler</a>
+        </div>
+    </form>
+</div>
 {% endblock %}
 
 {% block js %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const dropArea = document.getElementById('drop-area');
-            const fileList = document.getElementById('file-list');
-            const hiddenFileInput = document.getElementById('hidden-file');
-            const container = document.querySelector(".content-container");
-            const selectType = document.querySelector("select");
-            const contentField = document.querySelector("textarea");
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const dropArea = document.getElementById('drop-area');
+        const fileList = document.getElementById('file-list');
+        const hiddenFileInput = document.getElementById('hidden-file');
+        const container = document.querySelector(".content-container");
+        const selectType = document.querySelector("select");
+        const contentField = document.querySelector("textarea");
 
-            dropArea.addEventListener('dragover', (event) => {
-                event.preventDefault();
-                dropArea.classList.add('border-violet-600');
-            });
+        dropArea.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropArea.classList.add('border-violet-600');
+        });
 
-            dropArea.addEventListener('dragleave', () => {
-                dropArea.classList.remove('border-violet-600');
-            });
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('border-violet-600');
+        });
 
-            dropArea.addEventListener('drop', (event) => {
-                event.preventDefault();
-                dropArea.classList.remove('border-violet-600');
-                const files = event.dataTransfer.files;
+        dropArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropArea.classList.remove('border-violet-600');
+            const files = event.dataTransfer.files;
+            handleFiles(files);
+        });
+
+        dropArea.addEventListener('click', () => {
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.multiple = true;
+            fileInput.style.display = 'none';
+            fileInput.addEventListener('change', (event) => {
+                const files = event.target.files;
                 handleFiles(files);
             });
+            fileInput.click();
+        });
 
-            dropArea.addEventListener('click', () => {
-                const fileInput = document.createElement('input');
-                fileInput.type = 'file';
-                fileInput.multiple = true;
-                fileInput.style.display = 'none';
-                fileInput.addEventListener('change', (event) => {
-                    const files = event.target.files;
-                    handleFiles(files);
-                });
-                fileInput.click();
-            });
+        function handleFiles(files) {
+            fileList.innerHTML = '';
+            for (const file of files) {
+                const listItem = document.createElement('div');
+                listItem.className = 'file-item mt-2 text-sm';
+                listItem.textContent = file.name;
+                fileList.appendChild(listItem);
 
-            function handleFiles(files) {
-                fileList.innerHTML = '';
-                for (const file of files) {
-                    const listItem = document.createElement('div');
-                    listItem.className = 'file-item mt-2 text-sm';
-                    listItem.textContent = file.name;
-                    fileList.appendChild(listItem);
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const result = event.target.result;
+                    hiddenFileInput.value = result;
 
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        const result = event.target.result;
-                        hiddenFileInput.value = result;
+                    if (file.type.startsWith('image/')) {
+                        let img_preview = document.querySelector(".img-preview");
 
-                        if (file.type.startsWith('image/')) {
-                            let img_preview = document.querySelector(".img-preview");
+                        if (img_preview) {
+                            img_preview.classList.remove("collapse");
+                        } else {
+                            img_preview = document.createElement('img');
 
-                            if (img_preview) {
-                                img_preview.classList.remove("collapse");
-                            } else {
-                                img_preview = document.createElement('img');
-
-                                img_preview.className = 'max-w-full img-preview object-fit h-24';
-                                container.appendChild(img_preview);
-                            }
-                            img_preview.src = result;
-                            img_preview.alt = file.name;
-                            selectType.value = "image"
-                            if (contentField)
-                                contentField.classList = "collapse hidden";
-                        } else if (file.type.startsWith('video/')) {
-                            const video = document.createElement('video');
-                            video.src = result;
-                            video.controls = true;
-                            video.className = 'max-w-full mt-2';
-                            fileList.appendChild(video);
-                            selectType.value = "video";
-                        } else if (file.type === 'text/plain') {
-                            contentField.classList = "custom-input mt-4 mb-4";
-                            contentField.value = result;
-                            selectType.value = "text";
-
-                            const img_preview = document.querySelector(".img-preview");
-                            if (img_preview)
-                                img_preview.classList.add("collapse");
-
-                        } else if (file.type === 'application/pdf') {
-                            const apiUrl = '/api/pdf-to-text';
-                            const formData = new FormData();
-                            formData.append('file', file);
-
-                            fetch(apiUrl, {
-                                method: 'POST',
-                                body: formData
-                            })
-                                .then(response => response.json())
-                                .then(data => {
-                                    contentField.classList = "custom-input mt-4 mb-4";
-                                    contentField.value = data.text;
-                                    selectType.value = "pdf";
-
-                                    const img_preview = document.querySelector(".img-preview");
-                                    if (img_preview) img_preview.classList.add("collapse");
-                                })
-                                .catch(error => {
-                                    console.error('Erreur de traitement du PDF:', error);
-                                });
+                            img_preview.className = 'max-w-full img-preview object-fit h-24';
+                            container.appendChild(img_preview);
                         }
-                    };
+                        img_preview.src = result;
+                        img_preview.alt = file.name;
+                        selectType.value = "image"
+                        if (contentField)
+                            contentField.classList = "collapse hidden";
+                    } else if (file.type.startsWith('video/')) {
+                        const video = document.createElement('video');
+                        video.src = result;
+                        video.controls = true;
+                        video.className = 'max-w-full mt-2';
+                        fileList.appendChild(video);
+                        selectType.value = "video";
+                    } else if (file.type === 'text/plain') {
+                        contentField.classList = "custom-input mt-4 mb-4";
+                        contentField.value = result;
+                        selectType.value = "text";
 
-                    if (file.type.startsWith('image/') || file.type.startsWith('video/') || file.type === 'application/pdf') {
-                        reader.readAsDataURL(file);
-                    } else {
-                        reader.readAsText(file);
+                        const img_preview = document.querySelector(".img-preview");
+                        if (img_preview)
+                            img_preview.classList.add("collapse");
+
+                    } else if (file.type === 'application/pdf') {
+                        const apiUrl = '/api/pdf-to-text';
+                        const formData = new FormData();
+                        formData.append('file', file);
+
+                        fetch(apiUrl, {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                contentField.classList = "custom-input mt-4 mb-4";
+                                contentField.value = data.text;
+                                selectType.value = "pdf";
+
+                                const img_preview = document.querySelector(".img-preview");
+                                if (img_preview) img_preview.classList.add("collapse");
+                            })
+                            .catch(error => {
+                                console.error('Erreur de traitement du PDF:', error);
+                            });
                     }
+                };
+
+                if (file.type.startsWith('image/') || file.type.startsWith('video/') || file.type === 'application/pdf') {
+                    reader.readAsDataURL(file);
+                } else {
+                    reader.readAsText(file);
                 }
             }
-        });
-    </script>
-
+        }
+    });
+</script>
 {% endblock %}

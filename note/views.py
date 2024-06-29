@@ -1,4 +1,3 @@
-# views.py
 import base64
 import mimetypes
 
@@ -27,43 +26,38 @@ class NoteCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        uploaded_file = self.request.FILES.get('file')
 
-        # Vérifier si un fichier est téléchargé
-        if 'file' in self.request.FILES:
-            uploaded_file = self.request.FILES['file']
+        if uploaded_file:
             mime_type, encoding = mimetypes.guess_type(uploaded_file.name)
-
             if mime_type:
-                # Enregistrer le fichier avant d'obtenir son URL
-                note = form.save(commit=False)
-                note.file = uploaded_file
-                note.save()
-
-                # Vérifier le type MIME et assigner le type de note
-                if mime_type.startswith('image/'):
-                    note.note_type = 'image'
-                    note.content = note.file.url
-                elif mime_type.startswith('video/'):
-                    note.note_type = 'video'
-                    note.content = note.file.url
-                elif mime_type == 'text/plain':
-                    note.note_type = 'text'
-                    note.content = uploaded_file.read().decode('utf-8')
-                elif mime_type == 'application/pdf':
-                    note.note_type = 'pdf'
-                    note.content = note.file.url
-                else:
-                    # Lever une erreur si le type de fichier n'est pas autorisé
-                    form.add_error('file', 'Type de fichier non supporté.')
-                    return self.form_invalid(form)
-
-                note.save()  # Enregistrer à nouveau pour mettre à jour les champs
-
+                self.handle_file_upload(form, uploaded_file, mime_type)
             else:
                 form.add_error('file', 'Impossible de déterminer le type de fichier.')
                 return self.form_invalid(form)
 
         return super().form_valid(form)
+
+    def handle_file_upload(self, form, uploaded_file, mime_type):
+        note = form.save(commit=False)
+        note.file = uploaded_file
+        note.save()
+        if mime_type.startswith('image/'):
+            note.note_type = 'image'
+            note.content = note.file.url
+        elif mime_type.startswith('video/'):
+            note.note_type = 'video'
+            note.content = note.file.url
+        elif mime_type == 'text/plain':
+            note.note_type = 'text'
+            note.content = uploaded_file.read().decode('utf-8')
+        elif mime_type == 'application/pdf':
+            note.note_type = 'pdf'
+            note.content = note.file.url
+        else:
+            form.add_error('file', 'Type de fichier non supporté.')
+            return self.form_invalid(form)
+        note.save()
 
 
 class NoteUpdateView(LoginRequiredMixin, UpdateView):
@@ -77,36 +71,38 @@ class NoteUpdateView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        uploaded_file = self.request.FILES.get('file')
 
-        hidden_file = self.request.POST.get('hidden_file')
-        if hidden_file:
-            mime_type, encoding = mimetypes.guess_type(hidden_file)
+        if uploaded_file:
+            mime_type, encoding = mimetypes.guess_type(uploaded_file.name)
             if mime_type:
-                format, imgstr = hidden_file.split(';base64,')
-                ext = format.split('/')[-1]
-                file = ContentFile(base64.b64decode(imgstr), name=f"temp.{ext}")
-
-                form.instance.file = file
-                if mime_type.startswith('image/'):
-                    form.instance.note_type = 'image'
-                    form.instance.content = file.name
-                elif mime_type.startswith('video/'):
-                    form.instance.note_type = 'video'
-                    form.instance.content = file.name
-                elif mime_type == 'text/plain':
-                    form.instance.note_type = 'text'
-                    form.instance.content = file.read().decode('utf-8')
-                elif mime_type == 'application/pdf':
-                    form.instance.note_type = 'pdf'
-                    form.instance.content = file.name
-                else:
-                    form.add_error('file', 'Type de fichier non supporté.')
-                    return self.form_invalid(form)
+                self.handle_file_upload(form, uploaded_file, mime_type)
             else:
                 form.add_error('file', 'Impossible de déterminer le type de fichier.')
                 return self.form_invalid(form)
 
         return super().form_valid(form)
+
+    def handle_file_upload(self, form, uploaded_file, mime_type):
+        note = form.save(commit=False)
+        note.file = uploaded_file
+        note.save()
+        if mime_type.startswith('image/'):
+            note.note_type = 'image'
+            note.content = note.file.url
+        elif mime_type.startswith('video/'):
+            note.note_type = 'video'
+            note.content = note.file.url
+        elif mime_type == 'text/plain':
+            note.note_type = 'text'
+            note.content = uploaded_file.read().decode('utf-8')
+        elif mime_type == 'application/pdf':
+            note.note_type = 'pdf'
+            note.content = note.file.url
+        else:
+            form.add_error('file', 'Type de fichier non supporté.')
+            return self.form_invalid(form)
+        note.save()
 
 
 class NoteDeleteView(LoginRequiredMixin, DeleteView):

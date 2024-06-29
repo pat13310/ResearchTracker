@@ -7,6 +7,7 @@ class Note(models.Model):
         ('text', 'Texte'),
         ('image', 'Image'),
         ('video', 'Vidéo'),
+        ('pdf', 'PDF'),
     )
 
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='notes')
@@ -23,7 +24,6 @@ class Note(models.Model):
         return self.title or "Note"
 
     def save(self, *args, **kwargs):
-        # Ensure content is empty if the note is not of type 'text'
         if self.note_type != 'text':
             self.content = ''
         super().save(*args, **kwargs)
